@@ -391,25 +391,49 @@
             }
 
             .page-title {
-                font-size: 2em;
+                font-size: 1.6em;
             }
 
             .calendar-section {
-                padding: 30px 20px;
-                margin: 0 10px 20px;
+                padding: 18px 12px;
+                margin: 0 8px 18px;
+                border-radius: 10px;
             }
 
+            /* Make the table compact and scrollable if needed */
             .calendar-table {
-                font-size: 0.9em;
+                font-size: 0.95em;
+                display: block;
+                width: 100%;
+                overflow-x: auto;
+            }
+
+            .calendar-table thead,
+            .calendar-table tbody {
+                display: table;
+                width: 100%;
+                table-layout: fixed;
             }
 
             .calendar-table th,
             .calendar-table td {
-                padding: 12px 8px;
+                padding: 10px 8px;
+                word-break: break-word;
             }
 
             .calendar-embed iframe {
-                height: 400px;
+                height: 360px;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 18px;
+                padding: 0 12px;
+            }
+
+            .footer-bottom {
+                padding-left: 12px;
+                padding-right: 12px;
             }
         }
 

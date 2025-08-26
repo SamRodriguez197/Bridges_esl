@@ -368,6 +368,72 @@
             max-width: 600px;
             margin: 0 auto;
         }
+            @media (max-width: 768px) {
+                /* Simplify navigation on small screens */
+                .nav-links {
+                    display: none;
+                }
+
+                /* Stack major two-column areas into a single column */
+                .hero-container,
+                .registration-content,
+                .about-content {
+                    grid-template-columns: 1fr;
+                    gap: 20px;
+                    padding: 20px 12px;
+                    max-width: 100vw;
+                }
+
+                /* Make features and card grids single column */
+                .features-grid,
+                .features-cards-grid {
+                    grid-template-columns: 1fr;
+                    gap: 16px;
+                    padding: 0 12px;
+                }
+
+                .hero h1 {
+                    font-size: 1.9em;
+                }
+
+                .section-title {
+                    font-size: 1.15em;
+                }
+
+                .hero-buttons {
+                    flex-direction: column;
+                    gap: 10px;
+                }
+
+                /* Stats become a single column list */
+                .stats-grid {
+                    grid-template-columns: 1fr;
+                    gap: 12px;
+                }
+
+                /* Hide large, decorative images to reduce clutter */
+                .registration-decoration,
+                .sponsors-decoration,
+                .about-decoration {
+                    display: none !important;
+                }
+
+                .about-content {
+                    max-width: 100%;
+                    padding: 0 12px;
+                }
+
+                /* Footer adjustments */
+                .footer-content {
+                    grid-template-columns: 1fr;
+                    gap: 20px;
+                    padding: 0 12px;
+                }
+                .footer-bottom {
+                    padding-left: 12px;
+                    padding-right: 12px;
+                }
+            }
 
         .features-grid {
             display: grid;
