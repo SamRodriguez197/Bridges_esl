@@ -2,8 +2,58 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=0.86, maximum-scale=5.0, minimum-scale=0.86">
     <title>Class Calendar - Bridges ESL | Yale University</title>
+    <link rel="alternate" hreflang="x-default" href="https://bridgesesl.org/calendar">
+    <link rel="alternate" hreflang="es" href="https://bridgesesl.org/es/calendar">
+    <link rel="alternate" hreflang="zh" href="https://bridgesesl.org/zh/calendar">
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'en',
+                includedLanguages: 'es,zh,ar,fr,ko,ru,vi',
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+                autoDisplay: true
+            }, 'google_translate_element');
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const userLang = navigator.language || navigator.userLanguage;
+            const langCode = userLang.split('-')[0];
+            const supportedLanguages = ['es', 'zh', 'ar', 'fr', 'ko', 'ru', 'vi'];
+            
+            if (supportedLanguages.includes(langCode) && langCode !== 'en') {
+                const translatePrompt = document.createElement('div');
+                translatePrompt.style.cssText = `
+                    position: fixed;
+                    top: 80px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    background: white;
+                    padding: 15px 25px;
+                    border-radius: 8px;
+                    box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+                    z-index: 1001;
+                    display: flex;
+                    align-items: center;
+                    gap: 15px;
+                    font-size: 14px;
+                `;
+                translatePrompt.innerHTML = `
+                    <div>Would you like to translate this page?</div>
+                    <div id="google_translate_element"></div>
+                    <button onclick="this.parentElement.style.display='none'" style="
+                        border: none;
+                        background: none;
+                        cursor: pointer;
+                        padding: 5px;
+                    ">✕</button>
+                `;
+                document.body.appendChild(translatePrompt);
+            }
+        });
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
