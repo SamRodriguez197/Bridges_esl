@@ -627,37 +627,37 @@
             position: relative;
         }
 
-        .about-decoration {
-            position: absolute;
-            top: 50%;
-            right: 50px;
-            transform: translateY(-50%);
-            z-index: 1;
-            transition: transform 0.35s ease, right 0.25s ease;
+
+        /* Decorative image shown once below the Contact button */
+        .about-image {
+            text-align: center;
+            margin-top: 20px;
         }
 
-        .about-decoration img {
-            width: 500px;
+        .about-image img {
+            width: 360px; /* larger, single image */
+            max-width: 90%;
             height: auto;
             object-fit: contain;
             background: transparent;
-            border-radius: 0;
-            box-shadow: none;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.25);
             transition: transform 0.35s ease, width 0.25s ease;
         }
 
-        .about-decoration img:hover {
-            transform: translateY(-5px);
+        .about-image img:hover {
+            transform: translateY(-6px);
         }
 
         .about-content {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            align-items: center;
+            /* left: main text, right: stats + smaller decoration */
+            grid-template-columns: 1fr 300px;
+            gap: 30px;
+            align-items: start;
             position: relative;
             z-index: 2;
-            max-width: calc(100% - 300px); /* Make space for the decoration image */
+            max-width: 100%;
         }
 
         .about-text h2 {
@@ -673,23 +673,24 @@
             margin-bottom: 20px;
         }
 
+        /* Make the stats column compact so it can sit above the speech bubble in the right column */
         .stats-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;  /* Makes all cards equal width */
-            gap: 30px;
+            grid-template-columns: 1fr; /* stack vertically in the right column */
+            gap: 12px;
         }
 
         .stat-card {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 30px 20px;
-            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.08);
+            padding: 14px 12px; /* smaller padding */
+            border-radius: 12px;
             text-align: center;
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(8px);
         }
 
         .stat-card .number {
-            font-size: 2.5em;
-            font-weight: bold;
+            font-size: 1.6em; /* smaller number text */
+            font-weight: 700;
             color: #90cdf4;
             display: block;
         }
@@ -842,6 +843,11 @@
                 display: none;
             }
 
+            /* Ensure hero content sits below the fixed navbar on mobile */
+            .hero {
+                padding-top: 80px; /* leave space for navbar so heading isn't covered */
+            }
+
             .hero-container,
             .registration-content,
             .about-content {
@@ -893,7 +899,7 @@
                 transform: translateY(-8px);
                 display: flex;
                 justify-content: center;
-                margin-bottom: 18px;
+                margin-bottom: 10px;
                 z-index: 1;
             }
             .about-decoration img {
@@ -1151,11 +1157,9 @@
 
     <!-- About Section -->
     <section class="about" id="about">
-        <div class="about-decoration">
-            <img src="speech_bubble.png" alt="Decorative speech bubble">
-        </div>
         <div class="container">
             <div class="about-content">
+                <!-- left column: about text -->
                 <div class="about-text">
                     <h2>Building Bridges Since 2003</h2>
                     <p>Bridges ESL is a non-profit volunteer organization that provides free small-group English tutoring to immigrants and internationals in the New Haven community.</p>
@@ -1164,7 +1168,14 @@
                         <a href="mailto:bridgesesl@gmail.com" class="btn-primary">✉️ Contact Us</a>
                     </div>
                 </div>
-                <div class="stats-grid">
+             
+                <!-- right column: stats stacked above the decorative speech bubble -->
+                <div class="about-right-column">
+                    <div class="stats-grid">
+                                <!-- single speech bubble image shown once, below the Contact CTA -->
+                                
+                            </div>
+                            <div class="stats-grid">
                     <div class="stat-card">
                         <span class="number">20+</span>
                         <span class="label">Years of Service</span>
@@ -1180,9 +1191,15 @@
                     <div class="stat-card">
                         <span class="number">Community</span>
                         <span class="label">Focused</span>
-                    </div>
-                </div>
+                    </div> 
             </div>
+            </div>
+                    </div>
+                      <div class="about-image" style="margin-top:18px;">
+  <img src="speech_bubble.png" alt="Decorative speech bubble" 
+       style="width:500px; height:auto; object-fit:contain; background:transparent; border-radius:0; box-shadow:none; display:block;">
+</div>
+                </div>
         </div>
     </section>
 

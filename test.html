@@ -2,8 +2,63 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=0.86, maximum-scale=5.0, minimum-scale=0.86">
     <title>Bridges ESL - Free English Classes | Yale University</title>
+    <link rel="alternate" hreflang="x-default" href="https://bridgesesl.org/">
+    <link rel="alternate" hreflang="es" href="https://bridgesesl.org/es/">
+    <link rel="alternate" hreflang="zh" href="https://bridgesesl.org/zh/">
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'en',
+                includedLanguages: 'es,zh,ar,fr,ko,ru,vi',
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+                autoDisplay: true
+            }, 'google_translate_element');
+        }
+
+        // Check browser language and show translation prompt
+        document.addEventListener('DOMContentLoaded', function() {
+            const userLang = navigator.language || navigator.userLanguage;
+            const langCode = userLang.split('-')[0];
+            const supportedLanguages = ['es', 'zh', 'ar', 'fr', 'ko', 'ru', 'vi'];
+            
+            if (supportedLanguages.includes(langCode) && langCode !== 'en') {
+                const translatePrompt = document.createElement('div');
+                translatePrompt.style.cssText = `
+                    position: fixed;
+                    top: 80px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    background: white;
+                    padding: 15px 25px;
+                    border-radius: 8px;
+                    box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+                    z-index: 1001;
+                    display: flex;
+                    align-items: center;
+                    gap: 15px;
+                    font-size: 14px;
+                `;
+                translatePrompt.innerHTML = `
+                    <div>Would you like to translate this page?</div>
+                    <div id="google_translate_element"></div>
+                    <button onclick="this.parentElement.style.display='none'" style="
+                        border: none;
+                        background: none;
+                        cursor: pointer;
+                        padding: 5px;
+                    ">✕</button>
+                `;
+                document.body.appendChild(translatePrompt);
+            }
+        });
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+<link rel="manifest" href="site.webmanifest">
     <style>
         * {
             margin: 0;
@@ -128,7 +183,7 @@
         }
 
         .hero h1 {
-            font-size: 3.5em;
+            font-size: 2.6em;
             font-weight: 800;
             margin-bottom: 20px;
             line-height: 1.1;
@@ -208,12 +263,16 @@
             width: 100%;
             height: 100%;
             opacity: 0;
-            transition: opacity 1s ease-in-out;
+            transition: opacity 1s ease-in-out, transform 0.3s ease;
             display: flex;
             align-items: center;
             justify-content: center;
             border-radius: 20px;
             overflow: hidden;
+        }
+
+        .gallery-slide:hover {
+            transform: translateY(-5px);
         }
 
         .gallery-slide.active {
@@ -309,11 +368,77 @@
             max-width: 600px;
             margin: 0 auto;
         }
+            @media (max-width: 768px) {
+                /* Simplify navigation on small screens */
+                .nav-links {
+                    display: none;
+                }
+
+                /* Stack major two-column areas into a single column */
+                .hero-container,
+                .registration-content,
+                .about-content {
+                    grid-template-columns: 1fr;
+                    gap: 20px;
+                    padding: 20px 12px;
+                    max-width: 100vw;
+                }
+
+                /* Make features and card grids single column */
+                .features-grid,
+                .features-cards-grid {
+                    grid-template-columns: 1fr;
+                    gap: 16px;
+                    padding: 0 12px;
+                }
+
+                .hero h1 {
+                    font-size: 1.9em;
+                }
+
+                .section-title {
+                    font-size: 1.15em;
+                }
+
+                .hero-buttons {
+                    flex-direction: column;
+                    gap: 10px;
+                }
+
+                /* Stats become a single column list */
+                .stats-grid {
+                    grid-template-columns: 1fr;
+                    gap: 12px;
+                }
+
+                /* Hide large, decorative images to reduce clutter */
+                .registration-decoration,
+                .sponsors-decoration,
+                .about-decoration {
+                    display: none !important;
+                }
+
+                .about-content {
+                    max-width: 100%;
+                    padding: 0 12px;
+                }
+
+                /* Footer adjustments */
+                .footer-content {
+                    grid-template-columns: 1fr;
+                    gap: 20px;
+                    padding: 0 12px;
+                }
+                .footer-bottom {
+                    padding-left: 12px;
+                    padding-right: 12px;
+                }
+            }
 
         .features-grid {
             display: grid;
-            grid-template-columns: 350px 1fr;
-            gap: 60px;
+            grid-template-columns: 500px 1fr;
+            gap: 100px;
             margin-top: 40px;
         }
         
@@ -328,8 +453,8 @@
             grid-column: 1;
             grid-row: 1;
             background: white;
-            padding: 25px;
-            border-radius: 20px;
+            padding: 40px;
+            border-radius: 60px;
             box-shadow: 0 4px 25px rgba(0, 0, 0, 0.08);
             height: fit-content;
         }
@@ -396,7 +521,7 @@
             line-height: 1.6;
         }
 
-        /* Registration Section Decorative Images */
+        /* Registration Section */
         .registration {
             padding: 100px 0;
             background: white;
@@ -408,25 +533,47 @@
             z-index: 1;
         }
 
-       .registration-decoration img {
+        .registration-decoration img {
     width: 200px;
     height: 150px;
-    object-fit: contain;  /* show full heart */
+    object-fit: contain;  /* show full heart or image */
     background: transparent; /* ensure no background */
     border-radius: 0;     /* remove white box corners */
     box-shadow: none;     /* remove the drop shadow frame */
+    transition: transform 0.3s ease;
 }
 
+        /* Small decorative heart class for the three hearts */
+        .decor-heart {
+            width: 48px !important;
+            height: 48px !important;
+            object-fit: contain;
+            background: transparent;
+            border-radius: 0;
+            box-shadow: none;
+            transition: transform 0.3s ease;
+        }
 
-        /* Position Controls for Registration Images */
+        @media (max-width: 768px) {
+            .decor-heart {
+                width: 32px !important;
+                height: 32px !important;
+            }
+        }
+
+        .registration-decoration img:hover {
+            transform: translateY(-5px);
+        }
+
+
         .registration-decoration.top-left {
-            top: 50px;    /* Distance from top of section */
-            left: 50px;   /* Distance from left edge */
+            top: 50px;
+            left: 50px;
         }
 
         .registration-decoration.bottom-right {
-            bottom: 50px; /* Distance from bottom of section */
-            right: 50px;  /* Distance from right edge */
+            bottom: 50px;
+            right: 50px;
         }
 
         .registration-content {
@@ -472,7 +619,7 @@
             border-color: #0f4c75;
         }
 
-        /* About Section Decorative Image */
+        /* About Section */
         .about {
             padding: 100px 0;
             background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
@@ -480,32 +627,38 @@
             position: relative;
         }
 
-        .about-decoration {
-            position: absolute;
-            top: 50%;           /* Vertical center (50% from top) */
-            right: 50px;        /* Distance from right edge */
-            transform: translateY(-50%); /* Centers the image vertically */
-            z-index: 1;
+
+        /* Decorative image shown once below the Contact button */
+        .about-image {
+            text-align: center;
+            margin-top: 20px;
         }
 
-        .about-decoration img {
-            /* Image Size Controls */
-            width: 250px;       /* Change this to make image wider/narrower */
-            height: 300px;      /* Change this to make image taller/shorter */
-            object-fit: cover;  /* Keeps aspect ratio, crops if needed */
-            border-radius: 15px;
-            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.3);
+        .about-image img {
+            width: 360px; /* larger, single image */
+            max-width: 90%;
+            height: auto;
+            object-fit: contain;
+            background: transparent;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+            transition: transform 0.35s ease, width 0.25s ease;
         }
 
-       .about-content {
-    display: grid;
-    grid-template-columns: 2fr 1fr; /* 👈 text takes 2/3, stats grid 1/3 */
-    gap: 60px;
-    align-items: center;
-    position: relative;
-    z-index: 2;
-    max-width: calc(100% - 300px);
-}
+        .about-image img:hover {
+            transform: translateY(-6px);
+        }
+
+        .about-content {
+            display: grid;
+            /* left: main text, right: stats + smaller decoration */
+            grid-template-columns: 1fr 300px;
+            gap: 30px;
+            align-items: start;
+            position: relative;
+            z-index: 2;
+            max-width: 100%;
+        }
 
         .about-text h2 {
             font-size: 2.5em;
@@ -520,42 +673,33 @@
             margin-bottom: 20px;
         }
 
-        
-.stats-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(2, 1fr);
-    gap: 30px;
-    width: 100%;
-    max-width: 600px;
-    margin-left: 120px; /* 👈 push it right */
-}
+        /* Make the stats column compact so it can sit above the speech bubble in the right column */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr; /* stack vertically in the right column */
+            gap: 12px;
+        }
 
+        .stat-card {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 14px 12px; /* smaller padding */
+            border-radius: 12px;
+            text-align: center;
+            backdrop-filter: blur(8px);
+        }
 
-.stat-card {
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 15px;
-    text-align: center;
-    backdrop-filter: blur(10px);
-    padding: 30px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
+        .stat-card .number {
+            font-size: 1.6em; /* smaller number text */
+            font-weight: 700;
+            color: #90cdf4;
+            display: block;
+        }
 
-.stat-card .number {
-    font-size: 2.5em;
-    font-weight: bold;
-    color: #90cdf4;
-    margin-bottom: 8px;
-}
+        .stat-card .label {
+            font-size: 14px;
+            opacity: 0.8;
+        }
 
-.stat-card .label {
-    font-size: 16px;
-    opacity: 0.8;
-    line-height: 1.2;
-}
         /* Footer */
         .footer {
             background: #1a202c;
@@ -616,16 +760,7 @@
             transform: translateY(-2px);
         }
 
-.registration-decoration img {
-    mix-blend-mode: multiply;
-    background: transparent;
-}
-
-
-
-
-
-        /* Sponsors Section Decorative Images */
+        /* Sponsors Section */
         .sponsors {
             padding: 80px 0;
             background: white;
@@ -638,23 +773,26 @@
         }
 
         .sponsors-decoration img {
-            /* Image Size Controls */
-            width: 180px;        /* Change this to make images wider/narrower */
-            height: 120px;       /* Change this to make images taller/shorter */
-            object-fit: cover;   /* Keeps aspect ratio, crops if needed */
+            width: 180px;
+            height: 120px;
+            object-fit: cover;
             border-radius: 15px;
             box-shadow: 0 4px 25px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
         }
 
-        /* Position Controls for Sponsors Images */
+        .sponsors-decoration img:hover {
+            transform: translateY(-5px);
+        }
+
         .sponsors-decoration.top-left {
-            top: 50px;    /* Distance from top of section */
-            left: 50px;   /* Distance from left edge */
+            top: 50px;
+            left: 50px;
         }
 
         .sponsors-decoration.bottom-right {
-            bottom: 50px; /* Distance from bottom of section */
-            right: 50px;  /* Distance from right edge */
+            bottom: 50px;
+            right: 50px;
         }
 
         .sponsors-grid {
@@ -705,6 +843,11 @@
                 display: none;
             }
 
+            /* Ensure hero content sits below the fixed navbar on mobile */
+            .hero {
+                padding-top: 80px; /* leave space for navbar so heading isn't covered */
+            }
+
             .hero-container,
             .registration-content,
             .about-content {
@@ -738,15 +881,30 @@
                 gap: 20px;
             }
 
-            /* Hide decorative images on mobile */
+            /* Hide large decorative images on mobile, but keep about-decoration so it can reposition */
             .registration-decoration,
-            .sponsors-decoration,
-            .about-decoration {
-                display: none;
+            .sponsors-decoration {
+                display: none !important;
             }
 
             .about-content {
                 max-width: 100%;
+            }
+
+            /* Make the about decoration move/stack on smaller screens */
+            .about-decoration {
+                position: relative;
+                top: auto;
+                right: auto;
+                transform: translateY(-8px);
+                display: flex;
+                justify-content: center;
+                margin-bottom: 10px;
+                z-index: 1;
+            }
+            .about-decoration img {
+                width: 200px;
+                height: auto;
             }
         }
 
@@ -829,7 +987,7 @@
     <nav class="navbar">
         <div class="nav-container">
             <div class="logo">
-                <img src="Logo2025.jpg" alt="Bridges ESL Logo" style="height: 45px; width: auto;">
+                <img src="Logo2025.jpg" alt="Bridges ESL Logo" style="height: 45px; width: auto; transition: transform 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
                 <div class="logo-text">Bridges ESL</div>
             </div>
             <ul class="nav-links">
@@ -923,10 +1081,10 @@
                     </div>
                     <div style="display: flex; flex-direction: column; gap: 20px;">
                         <a href="https://www.instagram.com/p/DIowXbJJdRx/?img_index=1" target="_blank" class="insta-preview" style="display: block; border-radius: 15px; overflow: hidden; transition: transform 0.3s ease, box-shadow 0.3s ease;">
-                            <img src="insta1.png" alt="Instagram Post 1" style="width: 100%; height: 140px; object-fit: cover; border-radius: 15px; box-shadow: 0 4px 25px rgba(0, 0, 0, 0.08);">
+                            <img src="insta1.png" alt="Instagram Post 1" style="width: 100%; height: 400px; object-fit: cover; border-radius: 15px; box-shadow: 0 4px 25px rgba(0, 0, 0, 0.08);">
                         </a>
                         <a href="https://www.instagram.com/p/DGrs4iVMqOA/?img_index=1" target="_blank" class="insta-preview" style="display: block; border-radius: 15px; overflow: hidden; transition: transform 0.3s ease, box-shadow 0.3s ease;">
-                            <img src="insta2.png" alt="Instagram Post 2" style="width: 100%; height: 140px; object-fit: cover; border-radius: 15px; box-shadow: 0 4px 25px rgba(0, 0, 0, 0.08);">
+                            <img src="insta2.png" alt="Instagram Post 2" style="width: 100%; height: 400px; object-fit: cover; border-radius: 15px; box-shadow: 0 4px 25px rgba(0, 0, 0, 0.08);">
                         </a>
                     </div>
                 </div>
@@ -969,11 +1127,8 @@
 
     <!-- Registration Section -->
     <section class="registration" id="register">
-        <div class="registration-decoration top-left">
-            <img src="purple_heart.png" alt="Purple hand drawn heart">
-        </div>
-        <div class="registration-decoration bottom-right">
-            <img src="blue_heart.png" alt="Blue hand drawn heart">
+        <div class="registration-decoration" style="position: absolute; top: 50px; right: 50px; z-index: 1;">
+            <img src="red_heart.png" alt="Red decorative heart" class="decor-heart">
         </div>
         <div class="container">
             <div class="registration-content">
@@ -985,7 +1140,6 @@
                     <div style="margin: 30px 0;">
                         <h3 style="color: #2d3748; margin-bottom: 15px;">What to expect:</h3>
                         <ul style="color: #718096; padding-left: 20px;">
-                            <li>Placement assessment to determine your level</li>
                             <li>Small group classes with dedicated tutors</li>
                             <li>Focus on practical conversation and grammar</li>
                             <li>Supportive, multicultural learning environment</li>
@@ -994,28 +1148,8 @@
                 </div>
                 
                 <div class="reg-form">
-                    <h3 style="margin-bottom: 25px; color: #2d3748;">Join Our Mailing List</h3>
-                    <div class="form-group">
-                        <label>Full Name</label>
-                        <input type="text" placeholder="Your full name">
-                    </div>
-                    <div class="form-group">
-                        <label>Email Address</label>
-                        <input type="email" placeholder="your.email@example.com">
-                    </div>
-                    <div class="form-group">
-                        <label>Primary Language</label>
-                        <input type="text" placeholder="Enter your primary language">
-                    </div>
-                    <div class="form-group">
-                        <label>I am interested in:</label>
-                        <select>
-                            <option>Student Registration</option>
-                            <option>Volunteer Tutoring</option>
-                            <option>General Information</option>
-                        </select>
-                    </div>
-                    <a href="https://forms.gle/y8G36wNZ1fykEUfv7" class="btn-primary" style="width: 100%; text-align: center; display: block; margin-top: 20px;">📬 Join Mailing List</a>
+                    <h3 style="margin-bottom: 25px; color: #2d3748;">Register For Fall 2025:</h3>
+                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSfPEN6lwJHA5BH3Fz1S0ZU6riuPkaowPrrLFhQfAhzMF0Xg_w/viewform" class="btn-primary" style="width: 100%; text-align: center; display: block; margin-top: 20px;">📬 Register Here</a>
                 </div>
             </div>
         </div>
@@ -1023,11 +1157,9 @@
 
     <!-- About Section -->
     <section class="about" id="about">
-        <div class="about-decoration">
-            <img src="gallery4.jpeg" alt="Bridges ESL community">
-        </div>
         <div class="container">
             <div class="about-content">
+                <!-- left column: about text -->
                 <div class="about-text">
                     <h2>Building Bridges Since 2003</h2>
                     <p>Bridges ESL is a non-profit volunteer organization that provides free small-group English tutoring to immigrants and internationals in the New Haven community.</p>
@@ -1036,7 +1168,14 @@
                         <a href="mailto:bridgesesl@gmail.com" class="btn-primary">✉️ Contact Us</a>
                     </div>
                 </div>
-                <div class="stats-grid">
+             
+                <!-- right column: stats stacked above the decorative speech bubble -->
+                <div class="about-right-column">
+                    <div class="stats-grid">
+                                <!-- single speech bubble image shown once, below the Contact CTA -->
+                                
+                            </div>
+                            <div class="stats-grid">
                     <div class="stat-card">
                         <span class="number">20+</span>
                         <span class="label">Years of Service</span>
@@ -1052,19 +1191,25 @@
                     <div class="stat-card">
                         <span class="number">Community</span>
                         <span class="label">Focused</span>
-                    </div>
-                </div>
+                    </div> 
             </div>
+            </div>
+                    </div>
+                      <div class="about-image" style="margin-top:18px;">
+  <img src="speech_bubble.png" alt="Decorative speech bubble" 
+       style="width:500px; height:auto; object-fit:contain; background:transparent; border-radius:0; box-shadow:none; display:block;">
+</div>
+                </div>
         </div>
     </section>
 
     <!-- Sponsors Section -->
     <section class="sponsors">
-        <div class="sponsors-decoration top-left">
-            <img src="gallery5.png" alt="Learning environment">
+        <div class="sponsors-decoration" style="position: absolute; top: 50px; right: 50px; z-index: 1;">
+            <img src="purple_heart.png" alt="Purple decorative heart" class="decor-heart" style="object-fit: contain; background: transparent; border-radius: 0; box-shadow: none;">
         </div>
-        <div class="sponsors-decoration bottom-right">
-            <img src="gallery6.jpg" alt="Community gathering">
+        <div class="sponsors-decoration" style="position: absolute; bottom: 50px; left: 50px; z-index: 1;">
+            <img src="blue_heart.png" alt="Blue decorative heart" class="decor-heart" style="object-fit: contain; background: transparent; border-radius: 0; box-shadow: none;">
         </div>
         <div class="container">
             <div class="section-header">
