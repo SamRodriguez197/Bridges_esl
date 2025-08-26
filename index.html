@@ -183,7 +183,7 @@
         }
 
         .hero h1 {
-            font-size: 3.5em;
+            font-size: 2.6em;
             font-weight: 800;
             margin-bottom: 20px;
             line-height: 1.1;
@@ -536,12 +536,30 @@
         .registration-decoration img {
     width: 200px;
     height: 150px;
-    object-fit: contain;  /* show full heart */
+    object-fit: contain;  /* show full heart or image */
     background: transparent; /* ensure no background */
     border-radius: 0;     /* remove white box corners */
     box-shadow: none;     /* remove the drop shadow frame */
     transition: transform 0.3s ease;
 }
+
+        /* Small decorative heart class for the three hearts */
+        .decor-heart {
+            width: 48px !important;
+            height: 48px !important;
+            object-fit: contain;
+            background: transparent;
+            border-radius: 0;
+            box-shadow: none;
+            transition: transform 0.3s ease;
+        }
+
+        @media (max-width: 768px) {
+            .decor-heart {
+                width: 32px !important;
+                height: 32px !important;
+            }
+        }
 
         .registration-decoration img:hover {
             transform: translateY(-5px);
@@ -615,6 +633,7 @@
             right: 50px;
             transform: translateY(-50%);
             z-index: 1;
+            transition: transform 0.35s ease, right 0.25s ease;
         }
 
         .about-decoration img {
@@ -624,7 +643,7 @@
             background: transparent;
             border-radius: 0;
             box-shadow: none;
-            transition: transform 0.3s ease;
+            transition: transform 0.35s ease, width 0.25s ease;
         }
 
         .about-decoration img:hover {
@@ -856,15 +875,30 @@
                 gap: 20px;
             }
 
-            /* Hide decorative images on mobile */
+            /* Hide large decorative images on mobile, but keep about-decoration so it can reposition */
             .registration-decoration,
-            .sponsors-decoration,
-            .about-decoration {
-                display: none;
+            .sponsors-decoration {
+                display: none !important;
             }
 
             .about-content {
                 max-width: 100%;
+            }
+
+            /* Make the about decoration move/stack on smaller screens */
+            .about-decoration {
+                position: relative;
+                top: auto;
+                right: auto;
+                transform: translateY(-8px);
+                display: flex;
+                justify-content: center;
+                margin-bottom: 18px;
+                z-index: 1;
+            }
+            .about-decoration img {
+                width: 200px;
+                height: auto;
             }
         }
 
@@ -1087,14 +1121,8 @@
 
     <!-- Registration Section -->
     <section class="registration" id="register">
-        <div class="registration-decoration top-left">
-            <img src="gallery2.jpg" alt="Students learning together">
-        </div>
         <div class="registration-decoration" style="position: absolute; top: 50px; right: 50px; z-index: 1;">
-            <img src="red_heart.png" alt="Red decorative heart">
-        </div>
-        <div class="registration-decoration bottom-right">
-            <img src="gallery3.jpeg" alt="Class in session">
+            <img src="red_heart.png" alt="Red decorative heart" class="decor-heart">
         </div>
         <div class="container">
             <div class="registration-content">
@@ -1160,17 +1188,11 @@
 
     <!-- Sponsors Section -->
     <section class="sponsors">
-        <div class="sponsors-decoration top-left">
-            <img src="gallery5.png" alt="Learning environment">
-        </div>
-        <div class="sponsors-decoration bottom-right">
-            <img src="gallery6.jpg" alt="Community gathering">
-        </div>
         <div class="sponsors-decoration" style="position: absolute; top: 50px; right: 50px; z-index: 1;">
-            <img src="purple_heart.png" alt="Purple decorative heart" style="object-fit: contain; background: transparent; border-radius: 0; box-shadow: none;">
+            <img src="purple_heart.png" alt="Purple decorative heart" class="decor-heart" style="object-fit: contain; background: transparent; border-radius: 0; box-shadow: none;">
         </div>
         <div class="sponsors-decoration" style="position: absolute; bottom: 50px; left: 50px; z-index: 1;">
-            <img src="blue_heart.png" alt="Blue decorative heart" style="object-fit: contain; background: transparent; border-radius: 0; box-shadow: none;">
+            <img src="blue_heart.png" alt="Blue decorative heart" class="decor-heart" style="object-fit: contain; background: transparent; border-radius: 0; box-shadow: none;">
         </div>
         <div class="container">
             <div class="section-header">
