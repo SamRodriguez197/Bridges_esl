@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anthology - Bridges ESL | Yale University</title>
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+<link rel="manifest" href="site.webmanifest">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 15px 0;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-icon {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, #0f4c75 0%, #3282b8 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .logo-text {
+            font-size: 24px;
+            font-weight: 700;
+            color: #2d3748;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #4a5568;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #0f4c75;
+        }
+
+        .nav-links a.active {
+            color: #0f4c75;
+            font-weight: 600;
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 120px 0 60px;
+            background: #f7fafc;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .page-badge {
+            display: inline-block;
+            background: #e6fffa;
+            color: #319795;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .page-title {
+            font-size: 2.5em;
+            color: #2d3748;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .page-subtitle {
+            font-size: 1.2em;
+            color: #718096;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Anthology Sections */
+        .anthology-section {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.08);
+            margin-bottom: 30px;
+            transition: transform 0.3s ease;
+        }
+
+        .anthology-section:hover {
+            transform: translateY(-3px);
+        }
+
+        .section-title {
+            font-size: 1.8em;
+            color: #2d3748;
+            margin-bottom: 20px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .year-badge {
+            background: linear-gradient(135deg, #0f4c75 0%, #3282b8 100%);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .pdf-viewer {
+            width: 100%;
+            height: 600px;
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .pdf-links {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .pdf-link {
+            display: inline-block;
+            background: linear-gradient(135deg, #0f4c75 0%, #3282b8 100%);
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+
+        .pdf-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(15, 76, 117, 0.3);
+        }
+
+        .download-link {
+            background: transparent;
+            color: #0f4c75;
+            border: 2px solid #0f4c75;
+        }
+
+        .download-link:hover {
+            background: #0f4c75;
+            color: white;
+        }
+
+        .divider {
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #e2e8f0, transparent);
+            margin: 40px 0;
+        }
+
+        /* Footer */
+        .footer {
+            background: #1a202c;
+            color: white;
+            padding: 60px 0 30px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: #a0aec0;
+            text-decoration: none;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .footer-section a:hover {
+            color: white;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: transform 0.3s ease;
+            padding: 8px;
+            background: transparent;
+        }
+
+        .social-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .social-icon:hover {
+            transform: translateY(-2px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #2d3748;
+            color: #a0aec0;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .page-title {
+                font-size: 2em;
+            }
+
+            .section-title {
+                font-size: 1.5em;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .pdf-viewer {
+                height: 500px;
+            }
+
+            .pdf-links {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <img src="Logo2025.jpg" alt="Bridges ESL Logo" style="height: 45px; width: auto;">
+                <div class="logo-text">Bridges ESL</div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="students.html">For Students</a></li>
+                <li><a href="tutors.html">For Tutors</a></li>
+                <li><a href="board.html">The Board</a></li>
+                <li><a href="calendar.html">Class Calendar</a></li>
+                <li><a href="anthology.html" class="active">Anthology</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="container">
+            <!-- Page Header -->
+            <div class="page-header">
+                <div class="page-badge">Student Voices</div>
+                <h1 class="page-title">Anthology</h1>
+                <p class="page-subtitle">A collection of writings, stories, and reflections from our English learners showcasing their progress and unique perspectives</p>
+            </div>
+
+            <!-- Spring 2025 -->
+            <div class="anthology-section">
+                <h2 class="section-title">
+                    Spring 2025
+                    <span class="year-badge">Latest</span>
+                </h2>
+                <div class="pdf-links">
+                    <a href="https://campuspress.yale.edu/bridges/files/2025/05/Copy-of-Bridges-ESL-Spring-2024-Anthology-2-1.pdf" class="pdf-link" target="_blank">📖 View PDF</a>
+                    <a href="https://campuspress.yale.edu/bridges/files/2025/05/Copy-of-Bridges-ESL-Spring-2024-Anthology-2-1.pdf" class="pdf-link download-link" download>💾 Download</a>
+                </div>
+                <iframe src="https://docs.google.com/viewer?url=https://campuspress.yale.edu/bridges/files/2025/05/Copy-of-Bridges-ESL-Spring-2024-Anthology-2-1.pdf&embedded=true" class="pdf-viewer"></iframe>
+            </div>
+
+            <!-- Spring 2024 -->
+            <div class="anthology-section">
+                <h2 class="section-title">Spring 2024</h2>
+                <div class="pdf-links">
+                    <a href="https://campuspress.yale.edu/bridges/files/2024/07/Bridges-ESL-Spring-2024-Anthology.pdf" class="pdf-link" target="_blank">📖 View PDF</a>
+                    <a href="https://campuspress.yale.edu/bridges/files/2024/07/Bridges-ESL-Spring-2024-Anthology.pdf" class="pdf-link download-link" download>💾 Download</a>
+                </div>
+                <iframe src="https://docs.google.com/viewer?url=https://campuspress.yale.edu/bridges/files/2024/07/Bridges-ESL-Spring-2024-Anthology.pdf&embedded=true" class="pdf-viewer"></iframe>
+            </div>
+
+            <!-- Fall 2023 -->
+            <div class="anthology-section">
+                <h2 class="section-title">Fall 2023</h2>
+                <div class="pdf-links">
+                    <a href="https://campuspress.yale.edu/bridges/files/2024/04/Bridges-ESL-Fall-2023-Anthology-1-compressed-1d0ab3f89e7e3f46.pdf" class="pdf-link" target="_blank">📖 View PDF</a>
+                    <a href="https://campuspress.yale.edu/bridges/files/2024/04/Bridges-ESL-Fall-2023-Anthology-1-compressed-1d0ab3f89e7e3f46.pdf" class="pdf-link download-link" download>💾 Download</a>
+                </div>
+                <iframe src="https://docs.google.com/viewer?url=https://campuspress.yale.edu/bridges/files/2024/04/Bridges-ESL-Fall-2023-Anthology-1-compressed-1d0ab3f89e7e3f46.pdf&embedded=true" class="pdf-viewer"></iframe>
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- Fall 2022 & Spring 2023 -->
+            <div class="anthology-section">
+                <h2 class="section-title">Fall 2022 & Spring 2023</h2>
+                <div class="pdf-links">
+                    <a href="https://campuspress.yale.edu/bridges/files/2024/04/Bridges-ESL-2022-2023-Anthology-94ea6dbe7313c3ab.pdf" class="pdf-link" target="_blank">📖 View PDF</a>
+                    <a href="https://campuspress.yale.edu/bridges/files/2024/04/Bridges-ESL-2022-2023-Anthology-94ea6dbe7313c3ab.pdf" class="pdf-link download-link" download>💾 Download</a>
+                </div>
+                <iframe src="https://docs.google.com/viewer?url=https://campuspress.yale.edu/bridges/files/2024/04/Bridges-ESL-2022-2023-Anthology-94ea6dbe7313c3ab.pdf&embedded=true" class="pdf-viewer"></iframe>
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- Fall 2021 & Spring 2022 -->
+            <div class="anthology-section">
+                <h2 class="section-title">Fall 2021 & Spring 2022</h2>
+                <div class="pdf-links">
+                    <a href="https://campuspress.yale.edu/bridges/files/2024/04/Bridges_Anthology_2021_22-compressed-90154a2f865215bc.pdf" class="pdf-link" target="_blank">📖 View PDF</a>
+                    <a href="https://campuspress.yale.edu/bridges/files/2024/04/Bridges_Anthology_2021_22-compressed-90154a2f865215bc.pdf" class="pdf-link download-link" download>💾 Download</a>
+                </div>
+                <iframe src="https://docs.google.com/viewer?url=https://campuspress.yale.edu/bridges/files/2024/04/Bridges_Anthology_2021_22-compressed-90154a2f865215bc.pdf&embedded=true" class="pdf-viewer"></iframe>
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- Spring 2021 -->
+            <div class="anthology-section">
+                <h2 class="section-title">Spring 2021</h2>
+                <div class="pdf-links">
+                    <a href="https://campuspress.yale.edu/bridges/files/2024/04/Bridges-Anthology-Spring-2021-1-compressed-5fb9b4e1188b41e1.pdf" class="pdf-link" target="_blank">📖 View PDF</a>
+                    <a href="https://campuspress.yale.edu/bridges/files/2024/04/Bridges-Anthology-Spring-2021-1-compressed-5fb9b4e1188b41e1.pdf" class="pdf-link download-link" download>💾 Download</a>
+                </div>
+                <iframe src="https://docs.google.com/viewer?url=https://campuspress.yale.edu/bridges/files/2024/04/Bridges-Anthology-Spring-2021-1-compressed-5fb9b4e1188b41e1.pdf&embedded=true" class="pdf-viewer"></iframe>
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- Fall 2020 -->
+            <div class="anthology-section">
+                <h2 class="section-title">Fall 2020</h2>
+                <div class="pdf-links">
+                    <a href="https://campuspress.yale.edu/bridges/files/2024/04/Bridges-Anthology-Fall-2020-compressed-bda37b06cfd750be.pdf" class="pdf-link" target="_blank">📖 View PDF</a>
+                    <a href="https://campuspress.yale.edu/bridges/files/2024/04/Bridges-Anthology-Fall-2020-compressed-bda37b06cfd750be.pdf" class="pdf-link download-link" download>💾 Download</a>
+                </div>
+                <iframe src="https://docs.google.com/viewer?url=https://campuspress.yale.edu/bridges/files/2024/04/Bridges-Anthology-Fall-2020-compressed-bda37b06cfd750be.pdf&embedded=true" class="pdf-viewer"></iframe>
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- Fall 2019 & Spring 2020 -->
+            <div class="anthology-section">
+                <h2 class="section-title">Fall 2019 & Spring 2020</h2>
+                <div class="pdf-links">
+                    <a href="https://campuspress.yale.edu/bridges/files/2024/04/Anthology-9fb782c3dae2a241.pdf" class="pdf-link" target="_blank">📖 View PDF</a>
+                    <a href="https://campuspress.yale.edu/bridges/files/2024/04/Anthology-9fb782c3dae2a241.pdf" class="pdf-link download-link" download>💾 Download</a>
+                </div>
+                <iframe src="https://docs.google.com/viewer?url=https://campuspress.yale.edu/bridges/files/2024/04/Anthology-9fb782c3dae2a241.pdf&embedded=true" class="pdf-viewer"></iframe>
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- Spring 2018 -->
+            <div class="anthology-section">
+                <h2 class="section-title">Spring 2018</h2>
+                <div class="pdf-links">
+                    <a href="https://campuspress.yale.edu/bridges/files/2024/04/Bridges-ESL-Spring-2018-Anthology-compressed-e49c12eb6353ddbe.pdf" class="pdf-link" target="_blank">📖 View PDF</a>
+                    <a href="https://campuspress.yale.edu/bridges/files/2024/04/Bridges-ESL-Spring-2018-Anthology-compressed-e49c12eb6353ddbe.pdf" class="pdf-link download-link" download>💾 Download</a>
+                </div>
+                <iframe src="https://docs.google.com/viewer?url=https://campuspress.yale.edu/bridges/files/2024/04/Bridges-ESL-Spring-2018-Anthology-compressed-e49c12eb6353ddbe.pdf&embedded=true" class="pdf-viewer"></iframe>
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- Fall 2018 -->
+            <div class="anthology-section">
+                <h2 class="section-title">Fall 2018</h2>
+                <div class="pdf-links">
+                    <a href="https://campuspress.yale.edu/bridges/files/2024/04/Bridges-ESL-Fall-2018-Anthology-compressed-aa3435fb77114bdb.pdf" class="pdf-link" target="_blank">📖 View PDF</a>
+                    <a href="https://campuspress.yale.edu/bridges/files/2024/04/Bridges-ESL-Fall-2018-Anthology-compressed-aa3435fb77114bdb.pdf" class="pdf-link download-link" download>💾 Download</a>
+                </div>
+                <iframe src="https://docs.google.com/viewer?url=https://campuspress.yale.edu/bridges/files/2024/04/Bridges-ESL-Fall-2018-Anthology-compressed-aa3435fb77114bdb.pdf&embedded=true" class="pdf-viewer"></iframe>
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- Spring 2016 -->
+            <div class="anthology-section">
+                <h2 class="section-title">Spring 2016</h2>
+                <div class="pdf-links">
+                    <a href="https://campuspress.yale.edu/bridges/files/2024/04/Bridges-ESL-Spring-2016-Anthology-compressed-7398273d0d71a4b5.pdf" class="pdf-link" target="_blank">📖 View PDF</a>
+                    <a href="https://campuspress.yale.edu/bridges/files/2024/04/Bridges-ESL-Spring-2016-Anthology-compressed-7398273d0d71a4b5.pdf" class="pdf-link download-link" download>💾 Download</a>
+                </div>
+                <iframe src="https://docs.google.com/viewer?url=https://campuspress.yale.edu/bridges/files/2024/04/Bridges-ESL-Spring-2016-Anthology-compressed-7398273d0d71a4b5.pdf&embedded=true" class="pdf-viewer"></iframe>
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- Fall 2015 -->
+            <div class="anthology-section">
+                <h2 class="section-title">Fall 2015</h2>
+                <div class="pdf-links">
+                    <a href="https://campuspress.yale.edu/bridges/files/2024/02/AnthologyFinal-compressed-ebc8cccfe82327bf.pdf" class="pdf-link" target="_blank">📖 View PDF</a>
+                    <a href="https://campuspress.yale.edu/bridges/files/2024/02/AnthologyFinal-compressed-ebc8cccfe82327bf.pdf" class="pdf-link download-link" download>💾 Download</a>
+                </div>
+                <iframe src="https://docs.google.com/viewer?url=https://campuspress.yale.edu/bridges/files/2024/02/AnthologyFinal-compressed-ebc8cccfe82327bf.pdf&embedded=true" class="pdf-viewer"></iframe>
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- Fall 2014 -->
+            <div class="anthology-section">
+                <h2 class="section-title">Fall 2014</h2>
+                <div class="pdf-links">
+                    <a href="https://campuspress.yale.edu/bridges/files/2024/02/Bridges-ESL-Anthology-Fall-2014-compressed-976ea9220245ceee.pdf" class="pdf-link" target="_blank">📖 View PDF</a>
+                    <a href="https://campuspress.yale.edu/bridges/files/2024/02/Bridges-ESL-Anthology-Fall-2014-compressed-976ea9220245ceee.pdf" class="pdf-link download-link" download>💾 Download</a>
+                </div>
+                <iframe src="https://docs.google.com/viewer?url=https://campuspress.yale.edu/bridges/files/2024/02/Bridges-ESL-Anthology-Fall-2014-compressed-976ea9220245ceee.pdf&embedded=true" class="pdf-viewer"></iframe>
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- Fall 2013 -->
+            <div class="anthology-section">
+                <h2 class="section-title">Fall 2013</h2>
+                <div class="pdf-links">
+                    <a href="https://campuspress.yale.edu/bridges/files/2024/04/Anthology-Submissions--f21d0a3186717cc0.pdf" class="pdf-link" target="_blank">📖 View PDF</a>
+                    <a href="https://campuspress.yale.edu/bridges/files/2024/04/Anthology-Submissions--f21d0a3186717cc0.pdf" class="pdf-link download-link" download>💾 Download</a>
+                </div>
+                <iframe src="https://docs.google.com/viewer?url=https://campuspress.yale.edu/bridges/files/2024/04/Anthology-Submissions--f21d0a3186717cc0.pdf&embedded=true" class="pdf-viewer"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Bridges ESL</h3>
+                    <p>Free English classes for the New Haven community.</p>
+                    <div class="social-icons">
+                        <a href="https://www.instagram.com/bridgesesl/" class="social-icon" target="_blank" style="background: #E4405F;">
+                            <img src="insta.jpg" alt="Instagram" style="width: 24px; height: 24px;">
+                        </a>
+                        <a href="https://www.facebook.com/bridgesesl" class="social-icon" target="_blank" style="background: #1877F2;">
+                            <img src="facebook.png" alt="Facebook" style="width: 24px; height: 24px;">
+                        </a>
+                        <a href="mailto:bridgesesl@gmail.com" class="social-icon" style="background: #EA4335;">
+                            <img src="gmail.png" alt="Email" style="width: 24px; height: 24px;">
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <a href="index.html">Home</a>
+                    <a href="index.html#register">Register</a>
+                    <a href="https://forms.gle/y8G36wNZ1fykEUfv7">Mailing List</a>
+                    <a href="mailto:bridgesesl@gmail.com">Contact</a>
+                </div>
+                <div class="footer-section">
+                    <h3>Other ESL Resources</h3>
+                    <a href="http://nhfpl.org/services/literacy/">New Haven Free Public Library</a>
+                    <a href="https://lvagnh.org/students/">NH Adult & Continuing Education</a>
+                </div>
+                <div class="footer-section">
+                    <h3>Class Schedule</h3>
+                    <p>Fall 2025 Classes</p>
+                    <p>Saturdays: 10:00 AM - 12:00 PM</p>
+                    <p>Registration: August & January</p>
+                    <p>📧 bridgesesl@gmail.com</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>2025 Bridges ESL. Free English language education for the New Haven community.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
