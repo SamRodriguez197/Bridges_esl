@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=0.86, maximum-scale=5.0, minimum-scale=0.86">
@@ -17,11 +18,11 @@
             }, 'google_translate_element');
         }
 
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const userLang = navigator.language || navigator.userLanguage;
             const langCode = userLang.split('-')[0];
             const supportedLanguages = ['es', 'zh', 'ar', 'fr', 'ko', 'ru', 'vi'];
-            
+
             if (supportedLanguages.includes(langCode) && langCode !== 'en') {
                 const translatePrompt = document.createElement('div');
                 translatePrompt.style.cssText = `
@@ -53,11 +54,12 @@
             }
         });
     </script>
-    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
-<link rel="manifest" href="site.webmanifest">
+    <script type="text/javascript"
+        src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="manifest" href="site.webmanifest">
     <style>
         * {
             margin: 0;
@@ -73,6 +75,26 @@
             background: #f7fafc;
         }
 
+        /* Hamburger Menu */
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 5px;
+            z-index: 1001;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 25px;
+            height: 3px;
+            background: #2d3748;
+            margin: 5px 0;
+            transition: all 0.3s ease;
+            border-radius: 3px;
+        }
+
         /* Navigation - Same as bridges.html */
         .navbar {
             position: fixed;
@@ -81,7 +103,7 @@
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
             padding: 15px 0;
-            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
             z-index: 1000;
             transition: all 0.3s ease;
         }
@@ -395,7 +417,8 @@
             margin-top: 25px;
         }
 
-        .btn-primary, .btn-secondary {
+        .btn-primary,
+        .btn-secondary {
             display: inline-block;
             padding: 15px 30px;
             text-decoration: none;
@@ -502,8 +525,82 @@
 
         /* Responsive Design */
         @media (max-width: 768px) {
+            .nav-container {
+                position: relative;
+            }
+
+            .hamburger {
+                display: block;
+                position: absolute;
+                right: 0;
+                top: 50%;
+                transform: translateY(-50%);
+            }
+
             .nav-links {
                 display: none;
+                position: fixed;
+                top: 75px;
+                /* Height of navbar */
+                left: 0;
+                right: 0;
+                height: calc(100vh - 75px);
+                background: white;
+                flex-direction: column;
+                align-items: center;
+                padding: 40px 20px;
+                gap: 20px;
+                font-size: 1.1em;
+                z-index: 1000;
+                overflow-y: auto;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            }
+
+            .nav-links li {
+                width: 100%;
+                max-width: 300px;
+                text-align: center;
+                border-bottom: 1px solid #e2e8f0;
+                padding: 15px 0;
+            }
+
+            .nav-links li:last-child {
+                border-bottom: none;
+            }
+
+            .nav-links a {
+                display: block;
+                width: 100%;
+                padding: 12px 20px;
+                color: #2d3748;
+                font-size: 1.2em;
+            }
+
+            .nav-links a:hover {
+                background: #f7fafc;
+                border-radius: 8px;
+            }
+
+            .nav-links a.active {
+                background: #ebf8ff;
+                color: #0f4c75;
+                border-radius: 8px;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .hamburger.active span:nth-child(1) {
+                transform: rotate(45deg) translate(5px, 5px);
+            }
+
+            .hamburger.active span:nth-child(2) {
+                opacity: 0;
+            }
+
+            .hamburger.active span:nth-child(3) {
+                transform: rotate(-45deg) translate(7px, -7px);
             }
 
             .hero h1 {
@@ -541,7 +638,8 @@
                 border-radius: 10px;
             }
 
-            .tips-list, .special-resources {
+            .tips-list,
+            .special-resources {
                 padding: 14px;
                 border-radius: 8px;
                 margin: 12px 0;
@@ -552,7 +650,8 @@
                 gap: 10px;
             }
 
-            .btn-primary, .btn-secondary {
+            .btn-primary,
+            .btn-secondary {
                 padding: 10px 16px;
                 font-size: 14px;
             }
@@ -562,13 +661,35 @@
                 gap: 16px;
                 padding: 0 12px;
             }
+
             .footer-bottom {
                 padding-left: 12px;
                 padding-right: 12px;
             }
         }
     </style>
+    <script>
+        function toggleMenu() {
+            const navLinks = document.querySelector('.nav-links');
+            const hamburger = document.querySelector('.hamburger');
+            navLinks.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        }
+
+        // Close menu when clicking outside
+        document.addEventListener('click', function (event) {
+            const navLinks = document.querySelector('.nav-links');
+            const hamburger = document.querySelector('.hamburger');
+            if (navLinks.classList.contains('active') &&
+                !event.target.closest('.nav-links') &&
+                !event.target.closest('.hamburger')) {
+                navLinks.classList.remove('active');
+                hamburger.classList.remove('active');
+            }
+        });
+    </script>
 </head>
+
 <body>
     <!-- Navigation -->
     <nav class="navbar">
@@ -577,6 +698,11 @@
                 <img src="Logo2025.jpg" alt="Bridges ESL Logo" style="height: 45px; width: auto;">
                 <div class="logo-text">Bridges ESL</div>
             </div>
+            <button class="hamburger" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
             <ul class="nav-links">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="students.html">For Students</a></li>
@@ -593,7 +719,8 @@
         <div class="hero-container">
             <div class="hero-badge">🍎 Volunteer Teaching</div>
             <h1>Become a Tutor</h1>
-            <p class="hero-subtitle">Make a meaningful impact by teaching free English lessons to immigrants and visiting internationals in New Haven</p>
+            <p class="hero-subtitle">Make a meaningful impact by teaching free English lessons to immigrants and
+                visiting internationals in New Haven</p>
         </div>
     </section>
 
@@ -605,9 +732,14 @@
                 <h2 class="section-title">Overview</h2>
             </div>
             <div class="content-text">
-                <p><strong>Bridges ESL</strong> meets every Saturday to provide <strong>free ESL lessons</strong> for immigrants and visiting internationals in New Haven who want to improve their written and spoken English. Through small-group tutoring sessions, students gain English proficiency, communication skills, and the confidence needed to pursue employment, education, citizenship, and daily life.</p>
-                
-                <p>Tutors commit to preparing weekly individualized lesson plans and teaching each Saturday morning (excluding holiday breaks). While occasional absences are understandable, we strongly encourage tutors to build consistent, meaningful relationships with their students.</p>
+                <p><strong>Bridges ESL</strong> meets every Saturday to provide <strong>free ESL lessons</strong> for
+                    immigrants and visiting internationals in New Haven who want to improve their written and spoken
+                    English. Through small-group tutoring sessions, students gain English proficiency, communication
+                    skills, and the confidence needed to pursue employment, education, citizenship, and daily life.</p>
+
+                <p>Tutors commit to preparing weekly individualized lesson plans and teaching each Saturday morning
+                    (excluding holiday breaks). While excused absences are understandable, we strongly encourage tutors
+                    to build consistent, meaningful relationships with their students.</p>
             </div>
         </div>
 
@@ -618,23 +750,27 @@
             </div>
             <div class="content-text">
                 <p>Tutors may request to teach specific levels based on their experience and preferences:</p>
-                
+
                 <div class="level-grid">
                     <div class="level-card">
                         <div class="level-title">Survival Level</div>
-                        <div class="level-description">For students with minimal English experience, focusing on essential survival vocabulary and basic communication.</div>
+                        <div class="level-description">For students with minimal English experience, focusing on
+                            essential survival vocabulary and basic communication.</div>
                     </div>
                     <div class="level-card">
                         <div class="level-title">Beginner Level</div>
-                        <div class="level-description">Focus on basic vocabulary, grammar foundations, and everyday scripts for daily interactions.</div>
+                        <div class="level-description">Focus on basic vocabulary, grammar foundations, and everyday
+                            scripts for daily interactions.</div>
                     </div>
                     <div class="level-card">
                         <div class="level-title">Intermediate Low/High</div>
-                        <div class="level-description">Developing conversational fluency, intermediate grammar concepts, and listening comprehension skills.</div>
+                        <div class="level-description">Developing conversational fluency, intermediate grammar concepts,
+                            and listening comprehension skills.</div>
                     </div>
                     <div class="level-card">
                         <div class="level-title">Advanced/Conversational</div>
-                        <div class="level-description">For high proficiency students looking to refine fluency and tackle complex language structures.</div>
+                        <div class="level-description">For high proficiency students looking to refine fluency and
+                            tackle complex language structures.</div>
                     </div>
                 </div>
             </div>
@@ -646,20 +782,32 @@
                 <h2 class="section-title">Lesson Plans</h2>
             </div>
             <div class="content-text">
-                <p>Each week, tutors work with 1–3 students (ideally 1:1) and are expected to bring a <strong>concrete 2-hour lesson plan</strong> tailored to student goals. Lessons often incorporate <strong>vocabulary, grammar, listening, and conversation</strong>, with time distributed based on individual needs.</p>
-                
-                <p>Topics may include real-life scenarios like visiting the doctor, navigating banks, ordering food, TOEFL/GRE prep, or academic reading. Lesson plans can be printed for you if emailed to the team before the deadline, or you may bring your own copies.</p>
+                <p>Each week, tutors work with 1–3 students (ideally 1:1) and are expected to bring a <strong>concrete
+                        2-hour lesson plan</strong> tailored to student goals. Lessons often incorporate
+                    <strong>vocabulary, grammar, listening, and conversation</strong>, with time distributed based on
+                    individual needs.</p>
+
+                <p>Topics may include real-life scenarios like visiting the doctor, navigating banks, ordering food,
+                    TOEFL/GRE prep, or academic reading. Lesson plans can be printed for you if emailed to the team
+                    before the deadline, or you may bring your own copies.</p>
 
                 <div class="tips-list">
                     <h3>💡 Tips for Effective Lessons</h3>
                     <ol>
-                        <li><strong>Overprepare</strong> for your first lesson—bring more material than you'll use in two hours.</li>
-                        <li>Use the first 15–30 minutes to build rapport and learn about the student's goals for the semester.</li>
-                        <li>Prioritize <strong>dialogue</strong>—hearing language in context helps students absorb new vocabulary.</li>
-                        <li>Take advantage of the <strong>resource closet at the AACC</strong>. Email us before Saturday or ask after class.</li>
+                        <li><strong>Overprepare</strong> for your first lesson—bring more material than you'll use in
+                            two hours.</li>
+                        <li>Use the first 15–30 minutes to build rapport and learn about the student's goals for the
+                            semester.</li>
+                        <li>Prioritize <strong>dialogue</strong>—hearing language in context helps students absorb new
+                            vocabulary.</li>
+                        <li>Take advantage of the <strong>resource closet at the AACC</strong>. Email us before Saturday
+                            or ask after class.</li>
                         <li>Reach out if you need help—we're happy to meet 1-on-1 to review your first lesson plan.</li>
-                        <li>Be creative! Many students have rich stories and interests. Make lessons engaging and personal.</li>
-                        <li>Expect a <strong>field trip to the Yale Art Gallery</strong> and a <strong>student writing anthology</strong> later this semester. Let us know if you'd like to lead a discussion group!</li>
+                        <li>Be creative! Many students have rich stories and interests. Make lessons engaging and
+                            personal.</li>
+                        <li>Expect a <strong>field trip to the Yale Art Gallery</strong> and a <strong>student writing
+                                anthology</strong> later this semester. Let us know if you'd like to lead a discussion
+                            group!</li>
                     </ol>
                 </div>
             </div>
@@ -672,7 +820,7 @@
             </div>
             <div class="content-text">
                 <p>We've compiled helpful resources to support your lesson planning and teaching:</p>
-                
+
                 <div class="resources-grid">
                     <div class="resource-card">
                         <a href="http://www.abcteach.com/" target="_blank">abcteach.com</a>
@@ -687,7 +835,8 @@
                         <p>Comprehensive English learning materials</p>
                     </div>
                     <div class="resource-card">
-                        <a href="http://www.learnenglishfeelgood.com/index.html" target="_blank">learnenglishfeelgood.com</a>
+                        <a href="http://www.learnenglishfeelgood.com/index.html"
+                            target="_blank">learnenglishfeelgood.com</a>
                         <p>Interactive exercises and quizzes</p>
                     </div>
                     <div class="resource-card">
@@ -710,18 +859,26 @@
 
                 <div class="special-resources">
                     <h3>📖 Additional Resources</h3>
-                    <p>Access our comprehensive <a href="https://drive.google.com/file/d/0B7c-wgOnaRVXNmhzTW81MG85NEE/view?usp=sharing" target="_blank" style="color: #744210; font-weight: bold;">Bridges ESL Library Catalog</a> for books, materials, and teaching guides.</p>
+                    <p>Access our comprehensive <a
+                            href="https://drive.google.com/file/d/0B7c-wgOnaRVXNmhzTW81MG85NEE/view?usp=sharing"
+                            target="_blank" style="color: #744210; font-weight: bold;">Bridges ESL Library Catalog</a>
+                        for books, materials, and teaching guides.</p>
                 </div>
             </div>
         </div>
 
         <div class="cta-section">
             <h3>Ready to Make a Difference?</h3>
-            <p style="color: #4a5568; font-size: 1.1em; margin-bottom: 0;">Join our community of dedicated volunteer tutors and help students achieve their English learning goals.</p>
-            
+            <p style="color: #4a5568; font-size: 1.1em; margin-bottom: 0;">Join our community of dedicated volunteer
+                tutors and help students achieve their English learning goals.</p>
+
             <div class="cta-buttons">
                 <a href="https://forms.gle/y8G36wNZ1fykEUfv7" class="btn-primary">📝 Join Mailing List</a>
-                <a href="mailto:bridgesesl@gmail.com" class="btn-secondary">✉️ Contact Us</a>
+                <a href="mailto:bridgesesl@gmail.com" class="btn-secondary">✉️ bridgesesl@gmail.com</a>
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLScWywrrfS0hw8HNMGKZFc3jNT5mT4-r9nnF9LXFUB8F2-0qfQ/viewform?usp=send_form"
+                    class="btn-primary" style="display:block; margin-bottom:12px;">
+                    ✏️ Register Here to tutor for Fall 2025 Classes
+                </a>
             </div>
         </div>
     </div>
@@ -734,10 +891,12 @@
                     <h3>Bridges ESL</h3>
                     <p>Free English classes for the New Haven community.</p>
                     <div class="social-icons">
-                        <a href="https://www.instagram.com/bridgesesl/" class="social-icon" target="_blank" style="background: #E4405F;">
+                        <a href="https://www.instagram.com/bridgesesl/" class="social-icon" target="_blank"
+                            style="background: #E4405F;">
                             <img src="insta.jpg" alt="Instagram" style="width: 24px; height: 24px;">
                         </a>
-                        <a href="https://www.facebook.com/bridgesesl" class="social-icon" target="_blank" style="background: #1877F2;">
+                        <a href="https://www.facebook.com/profile.php?id=61565150944147" class="social-icon"
+                            target="_blank" style="background: #1877F2;">
                             <img src="facebook.png" alt="Facebook" style="width: 24px; height: 24px;">
                         </a>
                         <a href="mailto:bridgesesl@gmail.com" class="social-icon" style="background: #EA4335;">
@@ -748,19 +907,21 @@
                 <div class="footer-section">
                     <h3>Quick Links</h3>
                     <a href="index.html">Home</a>
-                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSfPEN6lwJHA5BH3Fz1S0ZU6riuPkaowPrrLFhQfAhzMF0Xg_w/viewform">Register</a>
+                    <a
+                        href="https://docs.google.com/forms/d/e/1FAIpQLSfPEN6lwJHA5BH3Fz1S0ZU6riuPkaowPrrLFhQfAhzMF0Xg_w/viewform">Register</a>
                     <a href="https://forms.gle/y8G36wNZ1fykEUfv7">Mailing List</a>
-                    <a href="mailto:bridgesesl@gmail.com">Contact</a>
                 </div>
                 <div class="footer-section">
                     <h3>Other ESL Resources</h3>
                     <a href="http://nhfpl.org/services/literacy/">New Haven Free Public Library</a>
-                    <a href="https://lvagnh.org/students/">NH Adult & Continuing Education</a>
+                    <a href="https://www.nhaec.org/">NH Adult & Continuing Education</a>
                 </div>
                 <div class="footer-section">
                     <h3>Class Schedule</h3>
-                    <p>Fall 2025 Classes</p>
+                    <p>Fall 2025 In-Person Classes</p>
                     <p>Saturdays: 10:00 AM - 12:00 PM</p>
+                    <p>Fall 2025 Online Classes</p>
+                    <p>Friday to Sunday Evenings</p>
                     <p>Registration: August & January</p>
                     <p>📧 bridgesesl@gmail.com</p>
                 </div>
@@ -771,4 +932,5 @@
         </div>
     </footer>
 </body>
+
 </html>

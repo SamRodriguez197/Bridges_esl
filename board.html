@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=0.86, maximum-scale=5.0, minimum-scale=0.86">
@@ -17,11 +18,11 @@
             }, 'google_translate_element');
         }
 
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const userLang = navigator.language || navigator.userLanguage;
             const langCode = userLang.split('-')[0];
             const supportedLanguages = ['es', 'zh', 'ar', 'fr', 'ko', 'ru', 'vi'];
-            
+
             if (supportedLanguages.includes(langCode) && langCode !== 'en') {
                 const translatePrompt = document.createElement('div');
                 translatePrompt.style.cssText = `
@@ -53,11 +54,12 @@
             }
         });
     </script>
-    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
-<link rel="manifest" href="site.webmanifest">
+    <script type="text/javascript"
+        src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="manifest" href="site.webmanifest">
     <style>
         * {
             margin: 0;
@@ -72,6 +74,26 @@
             overflow-x: hidden;
         }
 
+        /* Hamburger Menu */
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 5px;
+            z-index: 1001;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 25px;
+            height: 3px;
+            background: #2d3748;
+            margin: 5px 0;
+            transition: all 0.3s ease;
+            border-radius: 3px;
+        }
+
         /* Navigation */
         .navbar {
             position: fixed;
@@ -80,7 +102,7 @@
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
             padding: 15px 0;
-            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
             z-index: 1000;
             transition: all 0.3s ease;
         }
@@ -411,9 +433,84 @@
         }
 
         /* Responsive Design */
+        /* Responsive Design */
         @media (max-width: 768px) {
+            .nav-container {
+                position: relative;
+            }
+
+            .hamburger {
+                display: block;
+                position: absolute;
+                right: 0;
+                top: 50%;
+                transform: translateY(-50%);
+            }
+
             .nav-links {
                 display: none;
+                position: fixed;
+                top: 75px;
+                /* Height of navbar */
+                left: 0;
+                right: 0;
+                height: calc(100vh - 75px);
+                background: white;
+                flex-direction: column;
+                align-items: center;
+                padding: 40px 20px;
+                gap: 20px;
+                font-size: 1.1em;
+                z-index: 1000;
+                overflow-y: auto;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            }
+
+            .nav-links li {
+                width: 100%;
+                max-width: 300px;
+                text-align: center;
+                border-bottom: 1px solid #e2e8f0;
+                padding: 15px 0;
+            }
+
+            .nav-links li:last-child {
+                border-bottom: none;
+            }
+
+            .nav-links a {
+                display: block;
+                width: 100%;
+                padding: 12px 20px;
+                color: #2d3748;
+                font-size: 1.2em;
+            }
+
+            .nav-links a:hover {
+                background: #f7fafc;
+                border-radius: 8px;
+            }
+
+            .nav-links a.active {
+                background: #ebf8ff;
+                color: #0f4c75;
+                border-radius: 8px;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .hamburger.active span:nth-child(1) {
+                transform: rotate(45deg) translate(5px, 5px);
+            }
+
+            .hamburger.active span:nth-child(2) {
+                opacity: 0;
+            }
+
+            .hamburger.active span:nth-child(3) {
+                transform: rotate(-45deg) translate(7px, -7px);
             }
 
             .page-title {
@@ -446,12 +543,33 @@
                 gap: 16px;
                 padding: 0 12px;
             }
+
             .footer-bottom {
                 padding-left: 12px;
                 padding-right: 12px;
             }
         }
     </style>
+    <script>
+        function toggleMenu() {
+            const navLinks = document.querySelector('.nav-links');
+            const hamburger = document.querySelector('.hamburger');
+            navLinks.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        }
+
+        // Close menu when clicking outside
+        document.addEventListener('click', function (event) {
+            const navLinks = document.querySelector('.nav-links');
+            const hamburger = document.querySelector('.hamburger');
+            if (navLinks.classList.contains('active') &&
+                !event.target.closest('.nav-links') &&
+                !event.target.closest('.hamburger')) {
+                navLinks.classList.remove('active');
+                hamburger.classList.remove('active');
+            }
+        });
+    </script>
 </head>
 
 <body>
@@ -462,6 +580,11 @@
                 <img src="Logo2025.jpg" alt="Bridges ESL Logo" style="height: 45px; width: auto;">
                 <div class="logo-text">Bridges ESL</div>
             </div>
+            <button class="hamburger" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
             <ul class="nav-links">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="students.html">For Students</a></li>
@@ -480,7 +603,8 @@
             <div class="page-header">
                 <div class="page-badge">Leadership</div>
                 <h1 class="page-title">The Board</h1>
-                <p class="page-subtitle">Meet the dedicated student leaders who guide Bridges ESL and support our community of English learners</p>
+                <p class="page-subtitle">Meet the dedicated student leaders who guide Bridges ESL and support our
+                    community of English learners</p>
             </div>
 
             <!-- Board Photo -->
@@ -500,7 +624,16 @@
                             <a href="mailto:b.moore@yale.edu" class="member-email">b.moore@yale.edu</a>
                         </div>
                         <div class="member-bio">
-                            Brian is from Chicago and is a Junior in Silliman majoring in humanities. Brian does everything under the sun, but his most rewarding activity besides Bridges ESL is Link New Haven, which operates a free community resource desk in New Haven Green every week. He also loves endless conversations, any sport that involves running and learning new words. Brian is doing Bridges because when his mother migrated from Mexico, she had a difficult time overcoming the language barrier. In high school, teaching his mother English sparked within him a passion for spreading the gift of literacy. He joined Bridges his first semester on campus, and he will continue being involved with the organization until his last. Tutoring for Bridges is always the highlight of his week, and he can't stop telling people about his wonderful experience!
+                            Brian is from Chicago and is a Junior in Silliman majoring in humanities. Brian does
+                            everything under the sun, but his most rewarding activity besides Bridges ESL is Link New
+                            Haven, which operates a free community resource desk in New Haven Green every week. He also
+                            loves endless conversations, any sport that involves running and learning new words. Brian
+                            is doing Bridges because when his mother migrated from Mexico, she had a difficult time
+                            overcoming the language barrier. In high school, teaching his mother English sparked within
+                            him a passion for spreading the gift of literacy. He joined Bridges his first semester on
+                            campus, and he will continue being involved with the organization until his last. Tutoring
+                            for Bridges is always the highlight of his week, and he can't stop telling people about his
+                            wonderful experience!
                         </div>
                     </div>
 
@@ -509,10 +642,17 @@
                         <div class="member-photo">
                             <img src="IMG_8095-262x300.jpg" alt="Ignacio Ruiz-Sánchez">
                             <div class="member-title">Co-President: Ignacio Ruiz-Sánchez</div>
-                            <a href="mailto:ignacio.ruiz-sanchez@yale.edu" class="member-email">ignacio.ruiz-sanchez@yale.edu</a>
+                            <a href="mailto:ignacio.ruiz-sanchez@yale.edu"
+                                class="member-email">ignacio.ruiz-sanchez@yale.edu</a>
                         </div>
                         <div class="member-bio">
-                            Hailing from Collinsville, VA, Ignacio is a senior neuroscience major with a Chinese Certificate in Ezra Stiles College. Over his four years in Bridges, he has loved seeing the progress and passion for learning among students, as well as being witness to the strong support systems fostered by Yale's community. Ignacio is excited to see both new and returning tutors help welcome students into the family. Outside of Bridges, he enjoys trying new foods, working out whenever possible, hanging out at cute cafes, going for walks in East Rock, and spending time with friends.
+                            Hailing from Collinsville, VA, Ignacio is a senior neuroscience major with a Chinese
+                            Certificate in Ezra Stiles College. Over his four years in Bridges, he has loved seeing the
+                            progress and passion for learning among students, as well as being witness to the strong
+                            support systems fostered by Yale's community. Ignacio is excited to see both new and
+                            returning tutors help welcome students into the family. Outside of Bridges, he enjoys trying
+                            new foods, working out whenever possible, hanging out at cute cafes, going for walks in East
+                            Rock, and spending time with friends.
                         </div>
                     </div>
 
@@ -524,7 +664,12 @@
                             <a href="mailto:yuanyu.chen@yale.edu" class="member-email">yuanyu.chen@yale.edu</a>
                         </div>
                         <div class="member-bio">
-                            Yuanyu is a junior in Branford college majoring in Neuroscience. Yuanyu is from Reading, PA, and is involved in Community Health Educators, neuro research, and interning at Gather Haven. In her free time, she likes learning to bake, going to supermarkets, crocheting, and sketching. The favorite part of Bridges ESL for Yuanyu has been the interactions and cultural exchanges she's had. She loves that she can come into class and hear everyone's wonderful stories about their strange experiences, new coffee spots, and cooking adventures.
+                            Yuanyu is a junior in Branford college majoring in Neuroscience. Yuanyu is from Reading, PA,
+                            and is involved in Community Health Educators, neuro research, and interning at Gather
+                            Haven. In her free time, she likes learning to bake, going to supermarkets, crocheting, and
+                            sketching. The favorite part of Bridges ESL for Yuanyu has been the interactions and
+                            cultural exchanges she's had. She loves that she can come into class and hear everyone's
+                            wonderful stories about their strange experiences, new coffee spots, and cooking adventures.
                         </div>
                     </div>
 
@@ -536,7 +681,15 @@
                             <a href="mailto:tiffany.zhou@yale.edu" class="member-email">tiffany.zhou@yale.edu</a>
                         </div>
                         <div class="member-bio">
-                            Hailing from New Hampshire, Tiffany is a sophomore majoring in Molecular, Cellular, and Developmental Biology in Silliman College. Growing up with immigrant parents, she experienced firsthand the challenges of learning English and, as such, appreciates the work Bridges does to support immigrants in New Haven. Through Bridges, she has had the opportunity to meet individuals from diverse backgrounds and cultures, something she considers a beautiful aspect of the organization. In addition to her involvement with Bridges, Tiffany is active in several service clubs on campus, including HAPPY, the Red Cross Club, and the Nourish Project. Recently, she has also begun exploring Chinese traditional dance. In her free time, Tiffany enjoys engaging in arts and crafts.
+                            Hailing from New Hampshire, Tiffany is a sophomore majoring in Molecular, Cellular, and
+                            Developmental Biology in Silliman College. Growing up with immigrant parents, she
+                            experienced firsthand the challenges of learning English and, as such, appreciates the work
+                            Bridges does to support immigrants in New Haven. Through Bridges, she has had the
+                            opportunity to meet individuals from diverse backgrounds and cultures, something she
+                            considers a beautiful aspect of the organization. In addition to her involvement with
+                            Bridges, Tiffany is active in several service clubs on campus, including HAPPY, the Red
+                            Cross Club, and the Nourish Project. Recently, she has also begun exploring Chinese
+                            traditional dance. In her free time, Tiffany enjoys engaging in arts and crafts.
                         </div>
                     </div>
 
@@ -548,7 +701,11 @@
                             <a href="mailto:denise.peng@yale.edu" class="member-email">denise.peng@yale.edu</a>
                         </div>
                         <div class="member-bio">
-                            Denise Peng (she/her) is from Queens, New York and a senior MCDB major in Ezra Stiles college. She has been working with Bridges since her freshman year and is excited for her role as director of recruitment this year. Outside of Bridges, Denise works on the YFAM eboard and is also looking forward to serving as an Academic Strategies mentor. She is super excited to meet everyone, don't hesitate to reach out :)
+                            Denise Peng (she/her) is from Queens, New York and a senior MCDB major in Ezra Stiles
+                            college. She has been working with Bridges since her freshman year and is excited for her
+                            role as director of recruitment this year. Outside of Bridges, Denise works on the YFAM
+                            eboard and is also looking forward to serving as an Academic Strategies mentor. She is super
+                            excited to meet everyone, don't hesitate to reach out :)
                         </div>
                     </div>
 
@@ -560,7 +717,15 @@
                             <a href="mailto:anette.diaz@yale.edu" class="member-email">anette.diaz@yale.edu</a>
                         </div>
                         <div class="member-bio">
-                            Originally from New Jersey, Anette is a senior at Ezra Stiles majoring in Latin American studies, with certificates in Spanish and Education Studies. As the daughter of immigrants, she has dedicated much of her organizing work to supporting migrant communities both in the U.S. and abroad. Having been with Bridges for three years, she is continually impressed by the supportive community built within the classes. For her, organizations like this are essential in opening up educational opportunities for local New Haven migrants. In addition to her work with Bridges, she serves as an interpreter for Haven Clinic, is a student assistant for the EDST department, and a choreographer for Ballet Folklorico Mexicano de Yale. If she's ever missing, you'll most likely find her sunbathing at the farm.
+                            Originally from New Jersey, Anette is a senior at Ezra Stiles majoring in Latin American
+                            studies, with certificates in Spanish and Education Studies. As the daughter of immigrants,
+                            she has dedicated much of her organizing work to supporting migrant communities both in the
+                            U.S. and abroad. Having been with Bridges for three years, she is continually impressed by
+                            the supportive community built within the classes. For her, organizations like this are
+                            essential in opening up educational opportunities for local New Haven migrants. In addition
+                            to her work with Bridges, she serves as an interpreter for Haven Clinic, is a student
+                            assistant for the EDST department, and a choreographer for Ballet Folklorico Mexicano de
+                            Yale. If she's ever missing, you'll most likely find her sunbathing at the farm.
                         </div>
                     </div>
 
@@ -572,7 +737,16 @@
                             <a href="mailto:jungbin.cha@yale.edu" class="member-email">jungbin.cha@yale.edu</a>
                         </div>
                         <div class="member-bio">
-                            Jaime is a junior in Morse majoring in chemical engineering. Jaime is an international student from Bundang, South Korea. Besides Bridges ESL, Jaime is involved in doing research in the Turner Lab and the Winter Lab, Pitches and Tones A Capella (yayy pitches!!) and is the co-president of the Yale International Korean Club, Hanppuri. Jaime also works in the Marx Library and ULAs for Physics 188. In her free time, Jaime likes to sing, cook, and rewatch Harry Potter. Being an international student from Korea, she also learned English as a second language. She wants to give back by helping fellow English learners because she knows how hard it is to move to a new country and start speaking in a language that you have never used in daily life before. She cherishes being able to forge unique friendships with people from all over the world through Bridges ESL.
+                            Jaime is a junior in Morse majoring in chemical engineering. Jaime is an international
+                            student from Bundang, South Korea. Besides Bridges ESL, Jaime is involved in doing research
+                            in the Turner Lab and the Winter Lab, Pitches and Tones A Capella (yayy pitches!!) and is
+                            the co-president of the Yale International Korean Club, Hanppuri. Jaime also works in the
+                            Marx Library and ULAs for Physics 188. In her free time, Jaime likes to sing, cook, and
+                            rewatch Harry Potter. Being an international student from Korea, she also learned English as
+                            a second language. She wants to give back by helping fellow English learners because she
+                            knows how hard it is to move to a new country and start speaking in a language that you have
+                            never used in daily life before. She cherishes being able to forge unique friendships with
+                            people from all over the world through Bridges ESL.
                         </div>
                     </div>
 
@@ -584,7 +758,11 @@
                             <a href="mailto:asuka.koda@yale.edu" class="member-email">asuka.koda@yale.edu</a>
                         </div>
                         <div class="member-bio">
-                            From New York City, Asuka Koda (she/her) is a sophomore in Davenport double majoring in Math and Philosophy. Asuka was inspired to join Bridges because as an immigrant herself, Asuka wished this was a resource she and her mom had access to when learning English. In addition to her work in Bridges, Asuka is a staff reporter at the Yale Daily News and loves to create pottery in her spare time.
+                            From New York City, Asuka Koda (she/her) is a sophomore in Davenport double majoring in Math
+                            and Philosophy. Asuka was inspired to join Bridges because as an immigrant herself, Asuka
+                            wished this was a resource she and her mom had access to when learning English. In addition
+                            to her work in Bridges, Asuka is a staff reporter at the Yale Daily News and loves to create
+                            pottery in her spare time.
                         </div>
                     </div>
 
@@ -593,10 +771,15 @@
                         <div class="member-photo">
                             <img src="IMG_8097-205x300.jpg" alt="Rosa Anderson-Barrera">
                             <div class="member-title">Co-Director of Pairing: Rosa Anderson-Barrera</div>
-                            <a href="mailto:rosa.andersonbarrera@yale.edu" class="member-email">rosa.andersonbarrera@yale.edu</a>
+                            <a href="mailto:rosa.andersonbarrera@yale.edu"
+                                class="member-email">rosa.andersonbarrera@yale.edu</a>
                         </div>
                         <div class="member-bio">
-                            Rosa (she/her) is a senior in Pierson college majoring in Political Science and Latin American Studies. She hails from Chattanooga, TN with roots in Guatemala. During the school year, you can find Rosa volunteering at Dwight Hall, in the MEChA room with her fellow members, or taking LONG walks around campus. She is a lover of tropical fruits, magical realism, and funky jewelry.
+                            Rosa (she/her) is a senior in Pierson college majoring in Political Science and Latin
+                            American Studies. She hails from Chattanooga, TN with roots in Guatemala. During the school
+                            year, you can find Rosa volunteering at Dwight Hall, in the MEChA room with her fellow
+                            members, or taking LONG walks around campus. She is a lover of tropical fruits, magical
+                            realism, and funky jewelry.
                         </div>
                     </div>
 
@@ -608,7 +791,20 @@
                             <a href="mailto:linda.do@yale.edu" class="member-email">linda.do@yale.edu</a>
                         </div>
                         <div class="member-bio">
-                            Linda Do is a sophomore in Pierson studying Molecular Biophysics and Biochemistry. Originally from Fresno, CA. Linda decided to join Bridges because she experienced first-hand the difficulty of trying to learn a new language. Linda, while trying to learn Vietnamese, realized that there weren't many online resources in English available for learning Vietnamese. She was eventually able to learn Vietnamese through conversing with her parents, and realized then how invaluable practicing with native speakers was to improving one's language skills. Linda now wants to help English learners in return and support their language learning journey. Since joining Bridges ESL, she has enjoyed hearing about people's experiences around the world. In her free time, Linda likes to take walks (when it's warm enough outside for a Californian), go down Wikipedia rabbit holes, and think about foods she'd like to try. On campus, Linda is involved in the Vietnamese Student Association (VISA), Southeast Asian Movement (SEAM) and Yale Grammatical Diversity Project (YGDP; I.e., linguistics research on varieties of English spoken in North America). She also volunteers at HAVEN—and of course, Bridges ESL!
+                            Linda Do is a sophomore in Pierson studying Molecular Biophysics and Biochemistry.
+                            Originally from Fresno, CA. Linda decided to join Bridges because she experienced first-hand
+                            the difficulty of trying to learn a new language. Linda, while trying to learn Vietnamese,
+                            realized that there weren't many online resources in English available for learning
+                            Vietnamese. She was eventually able to learn Vietnamese through conversing with her parents,
+                            and realized then how invaluable practicing with native speakers was to improving one's
+                            language skills. Linda now wants to help English learners in return and support their
+                            language learning journey. Since joining Bridges ESL, she has enjoyed hearing about people's
+                            experiences around the world. In her free time, Linda likes to take walks (when it's warm
+                            enough outside for a Californian), go down Wikipedia rabbit holes, and think about foods
+                            she'd like to try. On campus, Linda is involved in the Vietnamese Student Association
+                            (VISA), Southeast Asian Movement (SEAM) and Yale Grammatical Diversity Project (YGDP; I.e.,
+                            linguistics research on varieties of English spoken in North America). She also volunteers
+                            at HAVEN—and of course, Bridges ESL!
                         </div>
                     </div>
                 </div>
@@ -616,8 +812,10 @@
 
             <!-- Contact Section -->
             <div class="contact-section">
-                <p>The Bridges ESL Board is the governing body of the organization. Its goal is to implement improvements and to provide ongoing support for tutors and students.</p>
-                <p>Contact us at <a href="mailto:bridgesesl@gmail.com" class="contact-email">bridgesesl@gmail.com</a></p>
+                <p>The Bridges ESL Board is the governing body of the organization. Its goal is to implement
+                    improvements and to provide ongoing support for tutors and students.</p>
+                <p>Contact us at <a href="mailto:bridgesesl@gmail.com" class="contact-email">bridgesesl@gmail.com</a>
+                </p>
             </div>
 
             <!-- Past Leadership -->
@@ -627,51 +825,73 @@
                 <div class="year-section">
                     <div class="year-title">2023-2024 Board</div>
                     <div class="position-list">
-                        <div class="position-item"><span class="position-title">Co-Presidents:</span> Derek Song and Melina Joseph</div>
+                        <div class="position-item"><span class="position-title">Co-Presidents:</span> Derek Song and
+                            Melina Joseph</div>
                         <div class="position-item"><span class="position-title">Treasurer:</span> Denise Peng</div>
-                        <div class="position-item"><span class="position-title">Secretary:</span> Ignacio Ruiz-Sanchez</div>
-                        <div class="position-item"><span class="position-title">Director of Recruitment:</span> Brian Moore</div>
-                        <div class="position-item"><span class="position-title">Director of Pairing:</span> Rosa Anderson Barrera</div>
-                        <div class="position-item"><span class="position-title">Director of Publicity:</span> Yuanyu Chen</div>
-                        <div class="position-item"><span class="position-title">Director of Education:</span> Selin Nalbantoglu</div>
+                        <div class="position-item"><span class="position-title">Secretary:</span> Ignacio Ruiz-Sanchez
+                        </div>
+                        <div class="position-item"><span class="position-title">Director of Recruitment:</span> Brian
+                            Moore</div>
+                        <div class="position-item"><span class="position-title">Director of Pairing:</span> Rosa
+                            Anderson Barrera</div>
+                        <div class="position-item"><span class="position-title">Director of Publicity:</span> Yuanyu
+                            Chen</div>
+                        <div class="position-item"><span class="position-title">Director of Education:</span> Selin
+                            Nalbantoglu</div>
                     </div>
                 </div>
 
                 <div class="year-section">
                     <div class="year-title">2022-2023 Board</div>
                     <div class="position-list">
-                        <div class="position-item"><span class="position-title">Co-Presidents:</span> Gina Coque and Isabelle Stemerman</div>
+                        <div class="position-item"><span class="position-title">Co-Presidents:</span> Gina Coque and
+                            Isabelle Stemerman</div>
                         <div class="position-item"><span class="position-title">Treasurer:</span> Melina Joseph</div>
                         <div class="position-item"><span class="position-title">Secretary:</span> Derek Song</div>
-                        <div class="position-item"><span class="position-title">Director of Recruitment:</span> Michaela Bauman</div>
-                        <div class="position-item"><span class="position-title">Director of Pairing:</span> Ignacio Ruiz-Sanchez</div>
-                        <div class="position-item"><span class="position-title">Director of Publicity:</span> Denise Peng</div>
-                        <div class="position-item"><span class="position-title">Bridges ESL Historian:</span> Janic Aguirre</div>
+                        <div class="position-item"><span class="position-title">Director of Recruitment:</span> Michaela
+                            Bauman</div>
+                        <div class="position-item"><span class="position-title">Director of Pairing:</span> Ignacio
+                            Ruiz-Sanchez</div>
+                        <div class="position-item"><span class="position-title">Director of Publicity:</span> Denise
+                            Peng</div>
+                        <div class="position-item"><span class="position-title">Bridges ESL Historian:</span> Janic
+                            Aguirre</div>
                     </div>
                 </div>
 
                 <div class="year-section">
                     <div class="year-title">2021-2022 Board</div>
                     <div class="position-list">
-                        <div class="position-item"><span class="position-title">Co-Presidents:</span> Charlie Mayock-Bradley and Emma Lewer</div>
-                        <div class="position-item"><span class="position-title">Treasurer:</span> Isabelle Stemerman</div>
+                        <div class="position-item"><span class="position-title">Co-Presidents:</span> Charlie
+                            Mayock-Bradley and Emma Lewer</div>
+                        <div class="position-item"><span class="position-title">Treasurer:</span> Isabelle Stemerman
+                        </div>
                         <div class="position-item"><span class="position-title">Secretary:</span> Julia Arancio</div>
-                        <div class="position-item"><span class="position-title">Director of Pairing:</span> Melina Joseph</div>
-                        <div class="position-item"><span class="position-title">Director of Education:</span> Gina Coque</div>
-                        <div class="position-item"><span class="position-title">Director of Publicity:</span> Michaela Bauman</div>
+                        <div class="position-item"><span class="position-title">Director of Pairing:</span> Melina
+                            Joseph</div>
+                        <div class="position-item"><span class="position-title">Director of Education:</span> Gina Coque
+                        </div>
+                        <div class="position-item"><span class="position-title">Director of Publicity:</span> Michaela
+                            Bauman</div>
                     </div>
                 </div>
 
                 <div class="year-section">
                     <div class="year-title">2020-2021 Board</div>
                     <div class="position-list">
-                        <div class="position-item"><span class="position-title">Co-Presidents:</span> Johnny Gross and Jacy Scott</div>
+                        <div class="position-item"><span class="position-title">Co-Presidents:</span> Johnny Gross and
+                            Jacy Scott</div>
                         <div class="position-item"><span class="position-title">Treasurer:</span> Paulina Wells</div>
-                        <div class="position-item"><span class="position-title">Secretary:</span> Carmen Ozonas Mascaró</div>
-                        <div class="position-item"><span class="position-title">Director of Recruitment:</span> Charlie Mayock-Bradley</div>
-                        <div class="position-item"><span class="position-title">Director of Pairing:</span> Emma Lewer</div>
-                        <div class="position-item"><span class="position-title">Director of Education:</span> Macrina Wang</div>
-                        <div class="position-item"><span class="position-title">Director of Publicity:</span> Julia Arancio</div>
+                        <div class="position-item"><span class="position-title">Secretary:</span> Carmen Ozonas Mascaró
+                        </div>
+                        <div class="position-item"><span class="position-title">Director of Recruitment:</span> Charlie
+                            Mayock-Bradley</div>
+                        <div class="position-item"><span class="position-title">Director of Pairing:</span> Emma Lewer
+                        </div>
+                        <div class="position-item"><span class="position-title">Director of Education:</span> Macrina
+                            Wang</div>
+                        <div class="position-item"><span class="position-title">Director of Publicity:</span> Julia
+                            Arancio</div>
                     </div>
                 </div>
             </div>
@@ -686,10 +906,12 @@
                     <h3>Bridges ESL</h3>
                     <p>Free English classes for the New Haven community.</p>
                     <div class="social-icons">
-                        <a href="https://www.instagram.com/bridgesesl/" class="social-icon" target="_blank" style="background: #E4405F;">
+                        <a href="https://www.instagram.com/bridgesesl/" class="social-icon" target="_blank"
+                            style="background: #E4405F;">
                             <img src="insta.jpg" alt="Instagram" style="width: 24px; height: 24px;">
                         </a>
-                        <a href="https://www.facebook.com/bridgesesl" class="social-icon" target="_blank" style="background: #1877F2;">
+                        <a href="https://www.facebook.com/profile.php?id=61565150944147" class="social-icon"
+                            target="_blank" style="background: #1877F2;">
                             <img src="facebook.png" alt="Facebook" style="width: 24px; height: 24px;">
                         </a>
                         <a href="mailto:bridgesesl@gmail.com" class="social-icon" style="background: #EA4335;">
@@ -702,17 +924,18 @@
                     <a href="index.html">Home</a>
                     <a href="index.html#register">Register</a>
                     <a href="https://forms.gle/y8G36wNZ1fykEUfv7">Mailing List</a>
-                    <a href="mailto:bridgesesl@gmail.com">Contact</a>
                 </div>
                 <div class="footer-section">
                     <h3>Other ESL Resources</h3>
                     <a href="http://nhfpl.org/services/literacy/">New Haven Free Public Library</a>
-                    <a href="https://lvagnh.org/students/">NH Adult & Continuing Education</a>
+                    <a href="https://www.nhaec.org/">NH Adult & Continuing Education</a>
                 </div>
                 <div class="footer-section">
                     <h3>Class Schedule</h3>
-                    <p>Fall 2025 Classes</p>
+                    <p>Fall 2025 In-Person Classes</p>
                     <p>Saturdays: 10:00 AM - 12:00 PM</p>
+                    <p>Fall 2025 Online Classes</p>
+                    <p>Friday to Sunday Evenings</p>
                     <p>Registration: August & January</p>
                     <p>📧 bridgesesl@gmail.com</p>
                 </div>
@@ -723,4 +946,5 @@
         </div>
     </footer>
 </body>
+
 </html>

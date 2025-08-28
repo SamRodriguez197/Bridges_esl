@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=0.86, maximum-scale=5.0, minimum-scale=0.86">
@@ -17,11 +18,11 @@
             }, 'google_translate_element');
         }
 
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const userLang = navigator.language || navigator.userLanguage;
             const langCode = userLang.split('-')[0];
             const supportedLanguages = ['es', 'zh', 'ar', 'fr', 'ko', 'ru', 'vi'];
-            
+
             if (supportedLanguages.includes(langCode) && langCode !== 'en') {
                 const translatePrompt = document.createElement('div');
                 translatePrompt.style.cssText = `
@@ -53,11 +54,12 @@
             }
         });
     </script>
-    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
-<link rel="manifest" href="site.webmanifest">
+    <script type="text/javascript"
+        src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="manifest" href="site.webmanifest">
     <style>
         * {
             margin: 0;
@@ -72,6 +74,26 @@
             overflow-x: hidden;
         }
 
+        /* Hamburger Menu */
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 5px;
+            z-index: 1001;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 25px;
+            height: 3px;
+            background: #2d3748;
+            margin: 5px 0;
+            transition: all 0.3s ease;
+            border-radius: 3px;
+        }
+
         /* Navigation */
         .navbar {
             position: fixed;
@@ -80,7 +102,7 @@
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
             padding: 15px 0;
-            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
             z-index: 1000;
             transition: all 0.3s ease;
         }
@@ -286,13 +308,13 @@
         }
 
         .special-event {
-            background: linear-gradient(135deg, #fed7d7 0%, #feb2b2 100%) !important;
+            background: linear-gradient(135deg, #cea857 0%, #cea857 100%) !important;
             font-weight: 600;
             color: #c53030;
         }
 
         .special-event:hover {
-            background: linear-gradient(135deg, #fecaca 0%, #fca5a5 100%) !important;
+            background: linear-gradient(135deg, #cea857 0%, #cea857 100%) !important;
         }
 
         /* Google Calendar Embed */
@@ -386,8 +408,82 @@
 
         /* Responsive Design */
         @media (max-width: 768px) {
+            .nav-container {
+                position: relative;
+            }
+
+            .hamburger {
+                display: block;
+                position: absolute;
+                right: 0;
+                top: 50%;
+                transform: translateY(-50%);
+            }
+
             .nav-links {
                 display: none;
+                position: fixed;
+                top: 75px;
+                /* Height of navbar */
+                left: 0;
+                right: 0;
+                height: calc(100vh - 75px);
+                background: white;
+                flex-direction: column;
+                align-items: center;
+                padding: 40px 20px;
+                gap: 20px;
+                font-size: 1.1em;
+                z-index: 1000;
+                overflow-y: auto;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            }
+
+            .nav-links li {
+                width: 100%;
+                max-width: 300px;
+                text-align: center;
+                border-bottom: 1px solid #e2e8f0;
+                padding: 15px 0;
+            }
+
+            .nav-links li:last-child {
+                border-bottom: none;
+            }
+
+            .nav-links a {
+                display: block;
+                width: 100%;
+                padding: 12px 20px;
+                color: #2d3748;
+                font-size: 1.2em;
+            }
+
+            .nav-links a:hover {
+                background: #f7fafc;
+                border-radius: 8px;
+            }
+
+            .nav-links a.active {
+                background: #ebf8ff;
+                color: #0f4c75;
+                border-radius: 8px;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .hamburger.active span:nth-child(1) {
+                transform: rotate(45deg) translate(5px, 5px);
+            }
+
+            .hamburger.active span:nth-child(2) {
+                opacity: 0;
+            }
+
+            .hamburger.active span:nth-child(3) {
+                transform: rotate(-45deg) translate(7px, -7px);
             }
 
             .page-title {
@@ -467,7 +563,28 @@
             text-decoration: underline;
         }
     </style>
+    <script>
+        function toggleMenu() {
+            const navLinks = document.querySelector('.nav-links');
+            const hamburger = document.querySelector('.hamburger');
+            navLinks.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        }
+
+        // Close menu when clicking outside
+        document.addEventListener('click', function (event) {
+            const navLinks = document.querySelector('.nav-links');
+            const hamburger = document.querySelector('.hamburger');
+            if (navLinks.classList.contains('active') &&
+                !event.target.closest('.nav-links') &&
+                !event.target.closest('.hamburger')) {
+                navLinks.classList.remove('active');
+                hamburger.classList.remove('active');
+            }
+        });
+    </script>
 </head>
+
 <body>
     <!-- Navigation -->
     <nav class="navbar">
@@ -476,6 +593,11 @@
                 <img src="Logo2025.jpg" alt="Bridges ESL Logo" style="height: 45px; width: auto;">
                 <div class="logo-text">Bridges ESL</div>
             </div>
+            <button class="hamburger" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
             <ul class="nav-links">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="students.html">For Students</a></li>
@@ -492,7 +614,8 @@
         <div class="hero-container">
             <div class="hero-badge">📅 Fall 2025</div>
             <h1>Class Calendar</h1>
-            <p class="hero-subtitle">View our complete schedule for Fall 2025. All classes meet Saturdays from 10:00 AM to 12:00 PM, both in-person and virtually.</p>
+            <p class="hero-subtitle">View our complete schedule for Fall 2025. In-Person classes meet Saturdays from
+                10:00 AM to 12:00 PM, online classes vary from Friday Morning to Sunday Evening.</p>
         </div>
     </section>
 
@@ -502,8 +625,13 @@
             <div class="calendar-section">
                 <div class="calendar-intro">
                     <p>Dear Tutors & Students,</p>
-                    <p>Please see the class calendar below. Classes will be held both <strong>in person</strong> (at the AACC and La Casa Cultural, 301 Crown St, New Haven, CT 06511) and <strong>virtually</strong> (via Zoom). <span class="highlight-text">This calendar reflects the dates for the Fall 2025 term.</span></p>
-                    <p>If you have any questions or need support, please contact us at <a href="mailto:bridgesesl@gmail.com">bridgesesl@gmail.com</a>.</p>
+                    <p>Please see the class calendar below. Classes will be held both <strong>in person</strong> (at the
+                        AACC and La Casa Cultural, 301 Crown St, New Haven, CT 06511) and <strong>virtually</strong>
+                        (via Zoom). The times listed below are for In-Person classes. Online classes vary from Friday
+                        morning to Sunday Evening.<span class="highlight-text">This calendar reflects the dates for the
+                            Fall 2025 term.</span></p>
+                    <p>If you have any questions or need support, please contact us at <a
+                            href="mailto:bridgesesl@gmail.com">bridgesesl@gmail.com</a>.</p>
                     <p style="margin-bottom: 0;"><strong>Best regards,</strong><br>The Bridges Board</p>
                 </div>
 
@@ -556,7 +684,7 @@
                             <td>10 AM – 12 PM</td>
                             <td>Class #7</td>
                         </tr>
-			<tr>
+                        <tr>
                             <td>November 8</td>
                             <td>10 AM – 12 PM</td>
                             <td>Class #8</td>
@@ -564,7 +692,8 @@
                         <tr class="special-event">
                             <td>December 6</td>
                             <td>10 AM – 12 PM</td>
-                            <td>Last Class & End-of-Semester Celebration<br><span style="font-size: 0.9em;">Students will be emailed certificates after this celebration.</span></td>
+                            <td>Last Class & End-of-Semester Celebration<br><span style="font-size: 0.9em;">Students
+                                    will be awarded certificates after this celebration.</span></td>
                         </tr>
                     </tbody>
                 </table>
@@ -577,7 +706,9 @@
 
                 <div class="calendar-embed">
                     <h3>Interactive Calendar View</h3>
-                    <iframe src="https://calendar.google.com/calendar/embed?src=c_ccd2424d2da5b230c2c98954ac0a6790b8db0e09689b386a9f50f6476acf44f2%40group.calendar.google.com&ctz=America%2FNew_York" frameborder="0" scrolling="no"></iframe>
+                    <iframe
+                        src="https://calendar.google.com/calendar/embed?src=c_ccd2424d2da5b230c2c98954ac0a6790b8db0e09689b386a9f50f6476acf44f2%40group.calendar.google.com&ctz=America%2FNew_York"
+                        frameborder="0" scrolling="no"></iframe>
                 </div>
             </div>
         </div>
@@ -590,30 +721,37 @@
                 <h3>Bridges ESL</h3>
                 <p>Free English classes for the New Haven community.</p>
                 <div class="social-icons">
-                    <a href="https://www.instagram.com/bridgesesl/" class="social-icon" target="_blank" style="background: #E4405F; color: white;">IG</a>
-                    <a href="https://www.facebook.com/bridgesesl" class="social-icon" target="_blank" style="background: #1877F2; color: white;">FB</a>
-                    <a href="mailto:bridgesesl@gmail.com" class="social-icon" style="background: #EA4335; color: white;">@</a>
+                    <a href="https://www.instagram.com/bridgesesl/" class="social-icon" target="_blank"
+                        style="background: #E4405F; color: white;">IG</a>
+                    <a href="https://www.facebook.com/profile.php?id=61565150944147" class="social-icon" target="_blank"
+                        style="background: #1877F2; color: white;">FB</a>
+                    <a href="mailto:bridgesesl@gmail.com" class="social-icon"
+                        style="background: #EA4335; color: white;">@</a>
                 </div>
             </div>
             <div class="footer-section">
                 <h3>Quick Links</h3>
                 <a href="index.html">Home</a>
-                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSfPEN6lwJHA5BH3Fz1S0ZU6riuPkaowPrrLFhQfAhzMF0Xg_w/viewform">Register</a>
-                    <a href="https://forms.gle/y8G36wNZ1fykEUfv7">Mailing List</a>
-                    <a href="mailto:bridgesesl@gmail.com">Contact</a>
+                <a
+                    href="https://docs.google.com/forms/d/e/1FAIpQLSfPEN6lwJHA5BH3Fz1S0ZU6riuPkaowPrrLFhQfAhzMF0Xg_w/viewform">Register</a>
+                <a href="https://forms.gle/y8G36wNZ1fykEUfv7">Mailing List</a>
+                <a href="mailto:bridgesesl@gmail.com">Contact</a>
 
             </div>
             <div class="footer-section">
                 <h3>Other ESL Resources</h3>
                 <a href="http://nhfpl.org/services/literacy/">New Haven Free Public Library</a>
-                <a href="https://lvagnh.org/students/">NH Adult & Continuing Education</a>
+                <a href="https://www.nhaec.org/">NH Adult & Continuing Education</a>
             </div>
             <div class="footer-section">
                 <h3>Class Schedule</h3>
-                <p>Spring 2025 Classes</p>
+                <h3>Class Schedule</h3>
+                <p>Fall 2025 In-Person Classes</p>
                 <p>Saturdays: 10:00 AM - 12:00 PM</p>
+                <p>Fall 2025 Online Classes</p>
+                <p>Friday to Sunday Evenings</p>
                 <p>Registration: August & January</p>
-                <p>bridgesesl@gmail.com</p>
+                <p>📧 bridgesesl@gmail.com</p>
             </div>
         </div>
         <div class="footer-bottom">
@@ -621,4 +759,5 @@
         </div>
     </footer>
 </body>
+
 </html>

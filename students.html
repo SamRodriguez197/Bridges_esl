@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>For Students - Bridges ESL</title>
-<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
-<link rel="manifest" href="site.webmanifest">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="manifest" href="site.webmanifest">
     <style>
         * {
             margin: 0;
@@ -23,6 +24,26 @@
             background: #f7fafc;
         }
 
+        /* Hamburger Menu */
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 5px;
+            z-index: 1001;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 25px;
+            height: 3px;
+            background: #2d3748;
+            margin: 5px 0;
+            transition: all 0.3s ease;
+            border-radius: 3px;
+        }
+
         /* Navigation - Same as bridges.html */
         .navbar {
             position: fixed;
@@ -31,7 +52,7 @@
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
             padding: 15px 0;
-            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
             z-index: 1000;
             transition: all 0.3s ease;
         }
@@ -192,9 +213,9 @@
 
         .level-grid {
             display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-                gap: 20px;
-                margin: 20px 0;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
         }
 
         .level-card {
@@ -271,7 +292,8 @@
             flex-wrap: wrap;
         }
 
-        .btn-primary, .btn-secondary {
+        .btn-primary,
+        .btn-secondary {
             display: inline-block;
             padding: 15px 30px;
             text-decoration: none;
@@ -378,59 +400,147 @@
 
         /* Responsive Design */
         @media (max-width: 768px) {
+            .nav-container {
+                position: relative;
+            }
+
+            .hamburger {
+                display: block;
+                position: absolute;
+                right: 0;
+                top: 50%;
+                transform: translateY(-50%);
+            }
+
             .nav-links {
                 display: none;
+                position: fixed;
+                top: 75px; /* Height of navbar */
+                left: 0;
+                right: 0;
+                height: calc(100vh - 75px);
+                background: white;
+                flex-direction: column;
+                align-items: center;
+                padding: 40px 20px;
+                gap: 20px;
+                font-size: 1.1em;
+                z-index: 1000;
+                overflow-y: auto;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             }
+
+            .nav-links li {
+                width: 100%;
+                max-width: 300px;
+                text-align: center;
+                border-bottom: 1px solid #e2e8f0;
+                padding: 15px 0;
+            }
+
+            .nav-links li:last-child {
+                border-bottom: none;
+            }
+
+            .nav-links a {
+                display: block;
+                width: 100%;
+                padding: 12px 20px;
+                color: #2d3748;
+                font-size: 1.2em;
+            }
+
+            .nav-links a:hover {
+                background: #f7fafc;
+                border-radius: 8px;
+            }
+
+            .nav-links a.active {
+                background: #ebf8ff;
+                color: #0f4c75;
+                border-radius: 8px;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .hamburger.active span:nth-child(1) {
+                transform: rotate(45deg) translate(5px, 5px);
+            }
+
+            .hamburger.active span:nth-child(2) {
+                opacity: 0;
+            }
+
+            .hamburger.active span:nth-child(3) {
+                transform: rotate(-45deg) translate(7px, -7px);
+            }
+
             .main-content {
                 padding: 20px 5px;
                 max-width: 100vw;
             }
+
             .content-section {
                 padding: 20px 10px;
                 border-radius: 10px;
                 margin-bottom: 20px;
             }
+
             .section-header {
                 flex-direction: column;
                 align-items: flex-start;
                 padding: 10px 0 10px 10px;
                 font-size: 1em;
             }
+
             .section-title {
                 font-size: 1.2em;
             }
+
             .hero h1 {
                 font-size: 2em;
             }
+
             .hero {
                 padding: 60px 0 40px;
             }
+
             .hero-subtitle {
                 font-size: 1em;
                 max-width: 95vw;
             }
+
             .level-grid {
                 grid-template-columns: 1fr;
                 gap: 15px;
             }
+
             .level-card {
                 padding: 15px 8px;
                 border-radius: 8px;
             }
+
             .class-image {
                 height: 180px;
                 margin: 15px 0;
             }
-            .highlight-box, .schedule-info {
+
+            .highlight-box,
+            .schedule-info {
                 padding: 15px;
                 border-radius: 8px;
                 margin: 15px 0;
             }
+
             .cta-buttons {
                 gap: 10px;
                 margin-top: 20px;
             }
-            .btn-primary, .btn-secondary {
+
+            .btn-primary,
+            .btn-secondary {
                 padding: 10px 18px;
                 font-size: 14px;
             }
@@ -464,7 +574,28 @@
             }
         }
     </style>
+    <script>
+        function toggleMenu() {
+            const navLinks = document.querySelector('.nav-links');
+            const hamburger = document.querySelector('.hamburger');
+            navLinks.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        }
+
+        // Close menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const navLinks = document.querySelector('.nav-links');
+            const hamburger = document.querySelector('.hamburger');
+            if (navLinks.classList.contains('active') && 
+                !event.target.closest('.nav-links') && 
+                !event.target.closest('.hamburger')) {
+                navLinks.classList.remove('active');
+                hamburger.classList.remove('active');
+            }
+        });
+    </script>
 </head>
+
 <body>
     <!-- Navigation -->
     <nav class="navbar">
@@ -473,6 +604,11 @@
                 <img src="Logo2025.jpg" alt="Bridges ESL Logo" style="height: 45px; width: auto;">
                 <div class="logo-text">Bridges ESL</div>
             </div>
+            <button class="hamburger" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
             <ul class="nav-links">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="students.html" class="active">For Students</a></li>
@@ -487,9 +623,10 @@
     <!-- Hero Section -->
     <section class="hero">
         <div class="hero-container">
-            <div class="hero-badge">📚 Student Information</div>
+            <div class="hero-badge">📚</div>
             <h1>Start Your English Learning Journey</h1>
-            <p class="hero-subtitle">Free small-group classes designed for immigrants and visiting internationals in the New Haven community</p>
+            <p class="hero-subtitle">Free small-group classes designed for immigrants and visiting internationals in the
+                New Haven community</p>
         </div>
     </section>
 
@@ -501,17 +638,22 @@
                 <h2 class="section-title">Program Overview</h2>
             </div>
             <div class="content-text">
-                <p><strong>Bridges ESL</strong> is a non-profit organization that provides <strong>free small-group English tutoring</strong> to immigrants and visiting internationals in the Yale and New Haven communities. The program offers several levels of instruction depending on each student's needs.</p>
-                
+                <p><strong>Bridges ESL</strong> is a non-profit organization that provides <strong>free small-group
+                        English tutoring</strong> to immigrants and visiting internationals in the Yale and New Haven
+                    communities. The program offers several levels of instruction depending on each student's needs.</p>
+
                 <div class="schedule-info">
-                    <h3>🗓️ Class Schedule & Location</h3>
+                    <h3>🗓️ In-Person Class Schedule & Location</h3>
                     <p><strong>When:</strong> Saturday mornings from 10:00 AM to 12:00 PM</p>
-                    <p><strong>Where:</strong> Asian American Cultural Center and La Casa Cultural</p>
-                    <p><strong>Address:</strong> 301 Crown St, New Haven, CT 06511</p>
-                    <p><strong>Options:</strong> Both in-person and virtual classes available for Fall 2025</p>
+                    <p><strong>Where:</strong> Asian American Cultural Center (295 Crown St) and La Casa Cultural (301
+                        Crown St)</p>
+                    <p><strong>Address:</strong> 295 & 301 Crown St, New Haven, CT 06511</p>
+                    <p><strong>Options:</strong> Both in-person and online classes available for Fall 2025. Online
+                        classes vary from Friday morning to Sunday evening.</p>
                 </div>
 
-                <img src="https://campuspress.yale.edu/bridges/files/2022/12/DSC_0260.jpg" alt="Bridges ESL students in class" class="class-image" />
+                <img src="https://campuspress.yale.edu/bridges/files/2022/12/DSC_0260.jpg"
+                    alt="Bridges ESL students in class" class="class-image" />
             </div>
         </div>
 
@@ -522,27 +664,32 @@
             </div>
             <div class="content-text">
                 <p>We offer four levels of instruction to meet students at their current English proficiency:</p>
-                
+
                 <div class="level-grid">
                     <div class="level-card">
                         <div class="level-title">Level 1 - Survival</div>
-                        <div class="level-description">For learners who know the alphabet and can write some basic words.</div>
+                        <div class="level-description">For learners who know the alphabet and can write some basic
+                            words.</div>
                     </div>
                     <div class="level-card">
                         <div class="level-title">Level 2 - Beginner/Low Intermediate</div>
-                        <div class="level-description">For learners who know simple grammar and can write sentences.</div>
+                        <div class="level-description">For learners who know simple grammar and can write sentences.
+                        </div>
                     </div>
                     <div class="level-card">
                         <div class="level-title">Level 3 - High Intermediate</div>
-                        <div class="level-description">For learners who can write a paragraph explaining their thoughts and opinions even though there might be some errors.</div>
+                        <div class="level-description">For learners who can write a paragraph explaining their thoughts
+                            and opinions even though there might be some errors.</div>
                     </div>
                     <div class="level-card">
                         <div class="level-title">Level 4 - Low Advanced</div>
-                        <div class="level-description">For learners who can write an essay explaining their point of view.</div>
-		    </div>
+                        <div class="level-description">For learners who can write an essay explaining their point of
+                            view.</div>
+                    </div>
                     <div class="level-card">
                         <div class="level-title">Level 5 - High Advanced</div>
-                        <div class="level-description">For learners who are able to give full professional presentations and explain abstract views.</div>
+                        <div class="level-description">For learners who are able to give full professional presentations
+                            and explain abstract views.</div>
                     </div>
                 </div>
             </div>
@@ -554,14 +701,21 @@
                 <h2 class="section-title">Learning Experience</h2>
             </div>
             <div class="content-text">
-                <p>Most sessions include the introduction of new grammar or conversation skills in small groups. Depending on the level and interest of the class, lessons may also feature <strong>field trips, community meals, or cultural discussions</strong> designed to promote practical language use and cultural exchange.</p>
-                
+                <p>Most sessions include the introduction of new grammar or conversation skills in small groups.
+                    Depending on the level and interest of the class, lessons may also feature <strong>field trips,
+                        community meals, or cultural discussions</strong> designed to promote practical language use and
+                    cultural exchange.</p>
+
                 <div class="highlight-box">
                     <h3>🎓 Important Note About Accreditation</h3>
-                    <p>While Bridges ESL provides structured learning and community support, <strong>we do not offer formal course accreditation</strong>. Participants should confirm with their employer or institution whether Bridges ESL fulfills any continuing education or documentation requirements.</p>
+                    <p>While Bridges ESL provides structured learning and community support, <strong>we do not offer
+                            formal course accreditation</strong>. Participants should confirm with their employer or
+                        institution whether Bridges ESL fulfills any continuing education or documentation requirements.
+                    </p>
                 </div>
 
-                <p>For a full list of class dates, visit our <a href="calendar.html" style="color: #4299e1; font-weight: bold; text-decoration: none;">calendar page</a>.</p>
+                <p>For a full list of class dates, visit our <a href="calendar.html"
+                        style="color: #4299e1; font-weight: bold; text-decoration: none;">calendar page</a>.</p>
             </div>
         </div>
 
@@ -571,12 +725,25 @@
                 <h2 class="section-title">Ready to Get Started?</h2>
             </div>
             <div class="content-text">
-                <p>Registration opens each August and January. Classes for Fall 2025 begin in August with weekly Saturday sessions. Join our mailing list to be notified when registration opens!</p>
-                
+                <p>Registration opens each August and January. Classes for Fall 2025 begin in September with weekly
+                    Saturday sessions, however rolling registration during the Semester is offered. Join our mailing
+                    list to be notified when registration opens!</p>
+
                 <div class="cta-buttons">
-                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSfPEN6lwJHA5BH3Fz1S0ZU6riuPkaowPrrLFhQfAhzMF0Xg_w/viewform" class="btn-primary">📝 Register Here</a>
-                    <a href="mailto:bridgesesl@gmail.com" class="btn-secondary">✉️ Email Us</a>
+                    <a href="mailto:bridgesesl@gmail.com" class="btn-secondary"
+                        style="display:block; margin-bottom:12px;">✉️ Email Us</a>
+
+                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSfPEN6lwJHA5BH3Fz1S0ZU6riuPkaowPrrLFhQfAhzMF0Xg_w/viewform"
+                        class="btn-primary" style="display:block; margin-bottom:12px;">
+                        🖥️ Register Here for Fall 2025 Online Classes
+                    </a>
+
+                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSfEMVbpJFvp-BT6DCbbG-PWkSVTFOdr0WjyVa48S2c3o7dmFw/viewform?usp=dialog"
+                        class="btn-primary" style="display:block;">
+                        🏫 Register Here for Fall 2025 In-Person Classes
+                    </a>
                 </div>
+
             </div>
         </div>
     </div>
@@ -589,10 +756,12 @@
                     <h3>Bridges ESL</h3>
                     <p>Free English classes for the New Haven community.</p>
                     <div class="social-icons">
-                        <a href="https://www.instagram.com/bridgesesl/" class="social-icon" target="_blank" style="background: #E4405F;">
+                        <a href="https://www.instagram.com/bridgesesl/" class="social-icon" target="_blank"
+                            style="background: #E4405F;">
                             <img src="insta.jpg" alt="Instagram" style="width: 24px; height: 24px;">
                         </a>
-                        <a href="https://www.facebook.com/bridgesesl" class="social-icon" target="_blank" style="background: #1877F2;">
+                        <a href="https://www.facebook.com/profile.php?id=61565150944147" class="social-icon"
+                            target="_blank" style="background: #1877F2;">
                             <img src="facebook.png" alt="Facebook" style="width: 24px; height: 24px;">
                         </a>
                         <a href="mailto:bridgesesl@gmail.com" class="social-icon" style="background: #EA4335;">
@@ -603,19 +772,22 @@
                 <div class="footer-section">
                     <h3>Quick Links</h3>
                     <a href="index.html">Home</a>
-                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSfPEN6lwJHA5BH3Fz1S0ZU6riuPkaowPrrLFhQfAhzMF0Xg_w/viewform">Register</a>
+                    <a
+                        href="https://docs.google.com/forms/d/e/1FAIpQLSfPEN6lwJHA5BH3Fz1S0ZU6riuPkaowPrrLFhQfAhzMF0Xg_w/viewform">Register</a>
                     <a href="https://forms.gle/y8G36wNZ1fykEUfv7">Mailing List</a>
                     <a href="mailto:bridgesesl@gmail.com">Contact</a>
                 </div>
                 <div class="footer-section">
                     <h3>Other ESL Resources</h3>
                     <a href="http://nhfpl.org/services/literacy/">New Haven Free Public Library</a>
-                    <a href="https://lvagnh.org/students/">NH Adult & Continuing Education</a>
+                    <a href="https://www.nhaec.org/">NH Adult & Continuing Education</a>
                 </div>
                 <div class="footer-section">
                     <h3>Class Schedule</h3>
-                    <p>Fall 2025 Classes</p>
+                    <p>Fall 2025 In-Person Classes</p>
                     <p>Saturdays: 10:00 AM - 12:00 PM</p>
+                    <p>Fall 2025 Online Classes</p>
+                    <p>Friday to Sunday Evenings</p>
                     <p>Registration: August & January</p>
                     <p>📧 bridgesesl@gmail.com</p>
                 </div>
@@ -626,4 +798,5 @@
         </div>
     </footer>
 </body>
+
 </html>
