@@ -53,7 +53,59 @@
                 `;
                 document.body.appendChild(translatePrompt);
             }
+            setupTranslateMonitor();
         });
+
+        // Function to update registration flyer based on language
+        function updateRegistrationFlyer() {
+            const flyerImg = document.getElementById('registration-flyer');
+            if (!flyerImg) return;
+            
+            // Check if Google Translate is active
+            const translateElement = document.querySelector('.goog-te-combo');
+            
+            let currentLang = 'en'; // default
+            
+            if (translateElement) {
+                currentLang = translateElement.value || 'en';
+            }
+            
+            // Only use specific images for Spanish and Chinese, default to English for everything else
+            let imageSrc = 'registration_flyer_en.png'; // default to English
+            
+            if (currentLang === 'es') {
+                imageSrc = 'registration_flyer_sp.png';
+            } else if (currentLang === 'zh' || currentLang === 'zh-CN' || currentLang === 'zh-TW') {
+                imageSrc = 'registration_flyer_ch.png';
+            }
+            // All other languages (ar, fr, ko, ru, vi, etc.) will use English version
+            
+            flyerImg.src = imageSrc;
+        }
+
+        // Monitor for Google Translate changes
+        function setupTranslateMonitor() {
+            // Check periodically for translate element
+            const checkForTranslate = setInterval(() => {
+                const translateElement = document.querySelector('.goog-te-combo');
+                if (translateElement) {
+                    translateElement.addEventListener('change', updateRegistrationFlyer);
+                    clearInterval(checkForTranslate);
+                }
+            }, 500);
+            
+            // Also monitor for translate banner changes
+            const observer = new MutationObserver(() => {
+                updateRegistrationFlyer();
+            });
+            
+            observer.observe(document.body, {
+                childList: true,
+                subtree: true,
+                attributes: true,
+                attributeFilter: ['class']
+            });
+        }
     </script>
     <script type="text/javascript"
         src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
@@ -1355,8 +1407,9 @@
 
                     <!-- Promotional flyer image -->
                     <div style="text-align: center; margin-bottom: 25px;">
-                        <img src="registration_flyer.png" alt="In-Person Students Registration Flyer" 
-                             style="max-width: 100%; height: auto; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                        <img id="registration-flyer" src="registration_flyer_en.png"
+                            alt="In-Person Students Registration Flyer"
+                            style="max-width: 100%; height: auto; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
                     </div>
 
                     <h3 style="margin-bottom: 15px; color: #2d3748; text-align: center;">
@@ -1504,7 +1557,8 @@
                     <a href="http://nhfpl.org/services/literacy/">New Haven Free Public Library</a>
                     <a href="https://www.nhaec.org/">NH Adult & Continuing Education</a>
                     <a href="https://lvagnh.org/">Literacy Volunteers of Greater New Haven</a>
-                    <a href="https://www.shorelineadulted.org/academic-programs/esol-english-for-speakers-of-other-languages/">ESOL</a>
+                    <a
+                        href="https://www.shorelineadulted.org/academic-programs/esol-english-for-speakers-of-other-languages/">ESOL</a>
 
                 </div>
                 <div class="footer-section">
