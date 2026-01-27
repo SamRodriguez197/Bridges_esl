@@ -71,12 +71,12 @@
             }
             
             // Only use specific images for Spanish and Chinese, default to English for everything else
-            let imageSrc = 'registration_flyer_en.png'; // default to English
+            let imageSrc = 'registration_flyer_en.jpg'; // default to English
             
             if (currentLang === 'es') {
-                imageSrc = 'registration_flyer_sp.png';
+                imageSrc = 'registration_flyer_sp.jpg';
             } else if (currentLang === 'zh' || currentLang === 'zh-CN' || currentLang === 'zh-TW') {
-                imageSrc = 'registration_flyer_ch.png';
+                imageSrc = 'registration_flyer_ch.jpg';
             }
             // All other languages (ar, fr, ko, ru, vi, etc.) will use English version
             
@@ -1253,8 +1253,12 @@
                 <div class="image-gallery">
                     <div class="gallery-container">
                         <div class="gallery-slide active">
-                            <img src="gallery1.jpg" alt="Spring 2025"
+                            <img src="gallery9.jpg" alt="Spring 2025"
                                 style="width:100%; height:100%; object-fit:cover;">
+                            <div class="slide-caption">Fall 2025</div>
+                        </div>
+                        <div class="gallery-slide">
+                            <img src="gallery1.jpg" alt="Fall 2024" style="width:100%; height:100%; object-fit:cover;">
                             <div class="slide-caption">Spring 2025</div>
                         </div>
                         <div class="gallery-slide">
@@ -1388,7 +1392,7 @@
                     <div class="section-badge">Registration</div>
                     <h2 class="section-title">Ready to Start Learning?</h2>
                     <p class="section-subtitle" style="text-align: left; max-width: 100%;">Student and tutor
-                        registration opens each August and January. Classes run for around 12 weeks each semester, with weekly in-person
+                        registration opens each August and January. Classes run for around 10 weeks each semester, with weekly in-person
                          Saturday sessions from 10:00 AM to 12:00 PM. Online classes vary from Friday Mornings to
                         Sunday Evening.</p>
 
@@ -1407,7 +1411,7 @@
 
                     <!-- Promotional flyer image -->
                     <div style="text-align: center; margin-bottom: 25px;">
-                        <img id="registration-flyer" src="registration_flyer_en.png"
+                        <img id="registration-flyer" src="registration_flyer_en.jpg"
                             alt="In-Person Students Registration Flyer"
                             style="max-width: 100%; height: auto; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
                     </div>
